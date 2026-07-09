@@ -3,7 +3,7 @@ package org.juliantovar.arquitecturahexagonal.application.usecase;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidCoordinatesException;
-import org.juliantovar.arquitecturahexagonal.domain.model.GetCurrentWeatherCommand;
+import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeatherCommand;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
 
