@@ -13,6 +13,12 @@ import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeath
 import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.WeatherResponse;
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper;
 
+/**
+ * Resource of weather
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 @Tag(name = "Weather")
 @Path("/weather")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,6 +32,13 @@ public class WeatherResource {
         this.mapper = mapper;
     }
 
+    /**
+     * Endpoint to get the current weather.
+     *
+     * @param latitude  Latitude of the location
+     * @param longitude Longitude of the location
+     * @return Object {@link Uni<WeatherResponse>} with current weather data
+     */
     @GET
     @Path("/current")
     @Operation(
