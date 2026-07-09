@@ -3,6 +3,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.mapper;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.OpenWeatherResponseDto;
 import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.WeatherDescriptionDto;
+import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.WeatherResponse;
 import org.juliantovar.arquitecturahexagonal.shared.Constants;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -30,5 +31,8 @@ public interface WeatherMapper {
 
         return weather.getFirst().description();
     }
+
+    @Mapping(target = "temperature", source = "temperature")
+    WeatherResponse toResponse(Weather weather);
 
 }
