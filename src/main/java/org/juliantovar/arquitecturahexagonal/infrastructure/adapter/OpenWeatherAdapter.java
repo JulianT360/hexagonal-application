@@ -16,6 +16,12 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.config.OpenWeatherCo
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper;
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
+/**
+ * Adapter to consume open weather client.
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 @ApplicationScoped
 public class OpenWeatherAdapter implements WeatherClientPort {
 
@@ -25,6 +31,13 @@ public class OpenWeatherAdapter implements WeatherClientPort {
     private final WeatherMapper mapper;
     private final OpenWeatherConfiguration configuration;
 
+    /**
+     * Constructor
+     *
+     * @param client        Client to consume {@link OpenWeatherClient}
+     * @param mapper        Mapper {@link WeatherMapper}
+     * @param configuration Application configuration {@link OpenWeatherConfiguration}
+     */
     public  OpenWeatherAdapter(@RestClient OpenWeatherClient client,
                                WeatherMapper mapper,
                                OpenWeatherConfiguration configuration) {
@@ -33,6 +46,13 @@ public class OpenWeatherAdapter implements WeatherClientPort {
         this.configuration = configuration;
     }
 
+    /**
+     * Get current weather from latitude and longitude of a location
+     *
+     * @param latitude      Latitude of the location.
+     * @param longitude     Longitude of the location.
+     * @return Weather data obtained {@link Uni<Weather>}
+     */
     @Override
     @Timeout
     @Retry

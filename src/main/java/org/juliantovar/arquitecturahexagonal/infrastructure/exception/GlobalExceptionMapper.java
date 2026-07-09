@@ -13,6 +13,12 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherServiceUnav
 
 import java.time.LocalDateTime;
 
+/**
+ * Mapper for global exceptions
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 @Provider
 public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
 
@@ -21,7 +27,13 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
     @Context
     UriInfo uriInfo;
 
-
+    /**
+     * Method to generate response object from exception.
+     *
+     * @param exception the exception to map to a response.
+     * @return object {@link Response} with error data.
+     *
+     */
     @Override
     public Response toResponse(Exception exception) {
 
@@ -64,6 +76,16 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
                 "Unexpected server error");
     }
 
+    /**
+     * Method to build response error.
+     *
+     * @param exception     Exception {@link Exception}
+     * @param status        Http status code {@link Response.Status}
+     * @param errorCode     Error code from {@link ErrorCode}
+     * @param message       Error message
+     * @return Object {@link Response} with error data from exception.
+     *
+     */
     private Response buildResponse(
             Exception exception,
             Response.Status status,
