@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
  * @since 10/07/2026
  */
 @ExtendWith(MockitoExtension.class)
-public class GetCurrentWeatherUseCaseTest {
+public class GetCurrentWeatherUseCaseUTest {
 
     private static final Double LATITUDE = 25.678254;
     private static final Double LONGITUDE = -100.284142;
