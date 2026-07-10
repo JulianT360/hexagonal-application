@@ -8,7 +8,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.OpenWeatherResponseExceptionMapper;
+import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.OpenWeatherErrorMapper;
 import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.OpenWeatherResponseDto;
 
 /**
@@ -19,7 +19,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.OpenWea
  */
 @Path("/data/4.0/onecall")
 @Produces(MediaType.APPLICATION_JSON)
-@RegisterProvider(OpenWeatherResponseExceptionMapper.class)
+@RegisterProvider(OpenWeatherErrorMapper.class)
 @RegisterRestClient(configKey = "openweather-api")
 public interface OpenWeatherClient {
 

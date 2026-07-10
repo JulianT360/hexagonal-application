@@ -13,5 +13,7 @@ public final class ErrorMessages {
     public static final String WEATHER_NOT_FOUND = "Weather information not found";
     public static final String WEATHER_SERVICE_UNAVAILABLE = "Weather service unavailable";
     public static final String WEATHER_SERVICE_UNAVAILABLE_FALLBACK =  "Weather service unavailable after retries";
+    public static final String WEATHER_RATE_LIMIT_REACHED = "Wheather rate limit reached";
+    public static final String UNEXPECTED_PROVIDER_ERROR = "Unexpected error calling OpenWeather";
 
 }

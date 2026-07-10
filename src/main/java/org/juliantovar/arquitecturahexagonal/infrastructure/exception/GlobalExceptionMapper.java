@@ -6,10 +6,10 @@ import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 import org.jboss.logging.Logger;
-import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidApiKeyException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidCoordinatesException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherNotFoundException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherServiceUnavailableException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoordinatesException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
 
 import java.time.LocalDateTime;
 
@@ -45,7 +45,7 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
                     invalidApiKey.getMessage());
         }
 
-        if(exception instanceof WeatherServiceUnavailableException unavailable) {
+        if(exception instanceof WeatherProviderUnavailableException unavailable) {
             return buildResponse(
                     exception,
                     Response.Status.SERVICE_UNAVAILABLE,
