@@ -6,6 +6,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoor
 import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeatherCommand;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
+import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.WeatherApiProvider;
 
 /**
  * Get current weather use case
@@ -18,7 +19,7 @@ public class GetCurrentWeatherUseCase {
 
     private final WeatherClientPort weatherClientPort;
 
-    public GetCurrentWeatherUseCase(WeatherClientPort weatherClientPort) {
+    public GetCurrentWeatherUseCase(@WeatherApiProvider WeatherClientPort weatherClientPort) {
         this.weatherClientPort = weatherClientPort;
     }
 
