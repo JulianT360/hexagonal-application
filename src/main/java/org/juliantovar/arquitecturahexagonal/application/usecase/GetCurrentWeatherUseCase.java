@@ -7,6 +7,12 @@ import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeath
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
 
+/**
+ * Get current weather use case
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 @ApplicationScoped
 public class GetCurrentWeatherUseCase {
 
@@ -16,6 +22,12 @@ public class GetCurrentWeatherUseCase {
         this.weatherClientPort = weatherClientPort;
     }
 
+    /**
+     * Execute the get current weather function.
+     *
+     * @param command   Object with coordinates of the location.
+     * @return Weather data obtained {@link Uni<Weather>}.
+     */
     public Uni<Weather> execute(GetCurrentWeatherCommand command) {
 
         if (command.latitude() < -90 || command.latitude() > 90) {

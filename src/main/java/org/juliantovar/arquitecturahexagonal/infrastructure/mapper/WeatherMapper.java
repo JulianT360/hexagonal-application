@@ -11,6 +11,12 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
+/**
+ * Mapper for weather response
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 @Mapper(componentModel = MappingConstants.ComponentModel.CDI)
 public interface WeatherMapper {
     @Mapping(target = "latitude", source = "lat")
@@ -23,6 +29,12 @@ public interface WeatherMapper {
     @Mapping(target = "description", source = "current.weather")
     Weather toDomain(OpenWeatherResponseDto response);
 
+    /**
+     * Method to set default value to map weather description.
+     *
+     * @param weather   List of {@link WeatherDescriptionDto}
+     * @return string with the first weather description
+     */
     default String mapWeatherDescription(
             List<WeatherDescriptionDto> weather) {
         if(weather == null || weather.isEmpty()) {
@@ -32,6 +44,12 @@ public interface WeatherMapper {
         return weather.getFirst().description();
     }
 
+    /**
+     * Method to generate {@link WeatherResponse} from {@link Weather}
+     *
+     * @param weather   Object that include weather data
+     * @return Response object with data obtainet about current weather
+     */
     @Mapping(target = "temperature", source = "temperature")
     WeatherResponse toResponse(Weather weather);
 

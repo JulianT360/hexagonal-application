@@ -7,6 +7,12 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherNotFoundExc
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherServiceUnavailableException;
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
+/**
+ * Exception mapper for open weather response.
+ *
+ * @author Julian Tovar
+ * @since 09/07/2026
+ */
 public class OpenWeatherResponseExceptionMapper implements ResponseExceptionMapper<RuntimeException> {
 
 
