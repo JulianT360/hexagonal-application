@@ -93,6 +93,12 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
+        <!-- Fault tolerance -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+        </dependency>
+
         <!-- Tests -->
 
         <dependency>
