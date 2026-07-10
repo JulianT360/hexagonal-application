@@ -10,6 +10,11 @@ quarkus:
       connect-timeout: 5000
       read-timeout: 5000
 
+    weather-api:
+      url: http://api.weatherapi.com
+      connect-timeout: 5000
+      read-timeout: 5000
+
   log:
     level: INFO
     category:
@@ -41,4 +46,9 @@ openweather:
   api-key: ${OPENWEATHER_API_KEY}
   client:
     units: metric
+    language: es
+
+weatherapi:
+  api-key: ${WEATHER_API_KEY}
+  client:
     language: es
