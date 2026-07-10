@@ -1,0 +1,44 @@
+quarkus:
+  application:
+    name: weather-service
+  http:
+    port: 8080
+
+  rest-client:
+    openweather-api:
+      url: https://api.openweathermap.org
+      connect-timeout: 5000
+      read-timeout: 5000
+
+  log:
+    level: INFO
+    category:
+      "com.julian.weather":
+        level: DEBUG
+
+  fault-tolerance:
+    retry:
+      max-retries: 3
+      delay: 500
+
+    timeout: 300
+
+    circuit-breaker:
+      request-volume-threshold: 5
+      failure-ratio: 0.5
+      delay: 10000
+
+  swagger-ui:
+    always-include: true
+
+  jackson:
+    fail-on-unknown-properties: false
+
+  smallrye-health:
+    root-path: /health
+
+openweather:
+  api-key: ${OPENWEATHER_API_KEY}
+  client:
+    units: metric
+    language: es
