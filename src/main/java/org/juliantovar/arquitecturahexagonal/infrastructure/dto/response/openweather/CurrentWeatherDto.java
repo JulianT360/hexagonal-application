@@ -1,4 +1,4 @@
-package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response;
+package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
