@@ -20,7 +20,7 @@ import java.time.Duration;
  * @author Julian Tovar
  * @since 09/07/2026
  */
-@ApplicationScoped
+//@ApplicationScoped
 public class OpenWeatherAdapter implements WeatherClientPort {
 
     private static final Logger LOG = Logger.getLogger(OpenWeatherAdapter.class);
