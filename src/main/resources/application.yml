@@ -52,3 +52,24 @@ weatherapi:
   api-key: ${WEATHER_API_KEY}
   client:
     language: es
+
+"%test":
+  quarkus:
+    rest-client:
+      weather-api:
+        url: http://localhost:9999
+      openweather-api:
+        url: http://localhost:9999
+    log:
+      level: WARN
+
+  weatherapi:
+    api-key: test-api-key
+    client:
+      language: es
+
+  openweather:
+    api-key: test-api-key
+    client:
+      units: metric
+      language: es

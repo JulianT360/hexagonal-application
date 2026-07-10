@@ -21,7 +21,7 @@ public record CurrentDto(
         @JsonProperty("wind_kph")
         Double windSpeed,
         @JsonProperty("pressure_mb")
-        Double pressure,
+        Integer pressure,
         int humidity,
         @JsonProperty("feelslike_c")
         Double feelsLike,
