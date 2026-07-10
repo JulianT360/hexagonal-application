@@ -1,4 +1,4 @@
-package org.juliantovar.arquitecturahexagonal.domain.exception;
+package org.juliantovar.arquitecturahexagonal.domain.exception.client;
 
 /**
  * Exception for invalid api key scenario.
@@ -6,7 +6,7 @@ package org.juliantovar.arquitecturahexagonal.domain.exception;
  * @author Julian Tovar
  * @since 09/07/2026
  */
-public class InvalidApiKeyException extends WeatherException {
+public class InvalidApiKeyException extends ClientException {
 
     public InvalidApiKeyException(String message) {
         super(message);
