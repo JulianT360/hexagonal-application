@@ -2,7 +2,6 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.adapter;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Default;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -10,6 +9,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalS
 import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
+import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.WeatherApiProvider;
 import org.juliantovar.arquitecturahexagonal.infrastructure.client.WeatherApiClient;
 import org.juliantovar.arquitecturahexagonal.infrastructure.config.WeatherApiConfiguration;
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherApiMapper;
@@ -22,8 +22,8 @@ import java.time.Duration;
  * @author Julian Tovar
  * @since 10/07/2026
  */
-@Default
 @ApplicationScoped
+@WeatherApiProvider
 public class WeatherApiAdapter implements WeatherClientPort {
 
     private static final Logger LOG = Logger.getLogger(WeatherApiAdapter.class);
