@@ -1,4 +1,4 @@
-package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response;
+package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather;
 
 import lombok.Builder;
 
@@ -22,7 +22,7 @@ import lombok.Builder;
 public record WeatherResponse(
         Double latitude,
         Double longitude,
-        Double timezone,
+        String timezone,
         Double temperature,
         Double feelsLike,
         Integer pressure,
