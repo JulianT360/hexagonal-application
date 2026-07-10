@@ -8,6 +8,7 @@ import org.jboss.logging.Logger;
 import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalServiceException;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
+import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.OpenWeatherProvider;
 import org.juliantovar.arquitecturahexagonal.infrastructure.client.OpenWeatherClient;
 import org.juliantovar.arquitecturahexagonal.infrastructure.config.OpenWeatherConfiguration;
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper;
@@ -21,6 +22,7 @@ import java.time.Duration;
  * @since 09/07/2026
  */
 @ApplicationScoped
+@OpenWeatherProvider
 public class OpenWeatherAdapter implements WeatherClientPort {
 
     private static final Logger LOG = Logger.getLogger(OpenWeatherAdapter.class);

@@ -10,7 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.juliantovar.arquitecturahexagonal.application.usecase.GetCurrentWeatherUseCase;
 import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeatherCommand;
-import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.WeatherResponse;
+import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather.WeatherResponse;
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper;
 
 /**

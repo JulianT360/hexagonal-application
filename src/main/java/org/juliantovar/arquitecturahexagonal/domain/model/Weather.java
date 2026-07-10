@@ -1,12 +1,9 @@
 package org.juliantovar.arquitecturahexagonal.domain.model;
 
-import lombok.Builder;
-
 /**
  * Base object weather for app domain.
  *
- * @param latitude      Latitude of the location.
- * @param longitude     Longitude of the location.
+ * @param coordinates      Latitude and longitude of the location.
  * @param timezone      Timezone of the location.
  * @param temperature   Temperature of the location.
  * @param feelsLike     Feels Like of the location.
@@ -18,10 +15,8 @@ import lombok.Builder;
  * @author Julian Tovar
  * @since 09/07/2026
  */
-@Builder
 public record Weather (
-        Double latitude,
-        Double longitude,
+        Coordinates coordinates,
         String timezone,
         Double temperature,
         Double feelsLike,

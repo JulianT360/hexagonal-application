@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.OpenWeatherErrorMapper;
-import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.OpenWeatherResponseDto;
+import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather.OpenWeatherResponseDto;
 
 /**
  * Rest client for open weather API.
