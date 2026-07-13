@@ -31,6 +31,14 @@ public class GetCurrentWeatherUseCase {
      */
     public Uni<Weather> execute(GetCurrentWeatherCommand command) {
 
+        if (command == null || command.latitude() == null) {
+            throw new InvalidCoordinatesException("La latitud es requerida");
+        }
+
+        if (command.longitude() == null) {
+            throw new InvalidCoordinatesException("La longitud es requerida");
+        }
+
         if (command.latitude() < -90 || command.latitude() > 90) {
             throw new InvalidCoordinatesException("La latitud debe ser un valor entre -90 y 90");
         }

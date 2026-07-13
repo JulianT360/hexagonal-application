@@ -9,6 +9,8 @@ import org.jboss.logging.Logger;
 import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
 import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoordinatesException;
 import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalServiceException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRateLimitException;
 import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
 
 import java.time.LocalDateTime;
@@ -53,6 +55,14 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
                     unavailable.getMessage());
         }
 
+        if(exception instanceof WeatherRateLimitException rateLimit) {
+            return buildResponse(
+                    exception,
+                    Response.Status.TOO_MANY_REQUESTS,
+                    ErrorCode.WEATHER_RATE_LIMIT_REACHED,
+                    rateLimit.getMessage());
+        }
+
         if(exception instanceof WeatherNotFoundException notFound) {
             return buildResponse(
                     exception,
@@ -67,6 +77,14 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
                     Response.Status.BAD_REQUEST,
                     ErrorCode.INVALID_COORDINATES,
                     invalid.getMessage());
+        }
+
+        if(exception instanceof ExternalServiceException external) {
+            return buildResponse(
+                    exception,
+                    Response.Status.SERVICE_UNAVAILABLE,
+                    ErrorCode.WEATHER_SERVICE_UNAVAILABLE,
+                    external.getMessage());
         }
 
         return buildResponse(
