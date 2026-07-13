@@ -21,26 +21,11 @@ quarkus:
       "com.julian.weather":
         level: DEBUG
 
-  fault-tolerance:
-    retry:
-      max-retries: 3
-      delay: 500
-
-    timeout: 300
-
-    circuit-breaker:
-      request-volume-threshold: 5
-      failure-ratio: 0.5
-      delay: 10000
-
   swagger-ui:
     always-include: true
 
   jackson:
     fail-on-unknown-properties: false
-
-  smallrye-health:
-    root-path: /health
 
 openweather:
   api-key: ${OPENWEATHER_API_KEY}
