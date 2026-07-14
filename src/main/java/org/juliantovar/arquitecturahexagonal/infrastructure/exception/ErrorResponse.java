@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@RegisterForReflection
 public record ErrorResponse(
         LocalDateTime timestamp,
         int status,
