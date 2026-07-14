@@ -3,6 +3,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.rest;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.juliantovar.arquitecturahexagonal.infrastructure.resource.WeatherApiWireMockResource;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -52,7 +53,7 @@ public class WeatherResourceWireMockITest {
                 .statusCode(401)
                 .contentType("application/json")
                 .body("error", equalTo("INVALID_API_KEY"))
-                .body("message", equalTo("Invalid OpenWeather API Key"));
+                .body("message", equalTo(ErrorMessages.INVALID_API_KEY));
     }
 
     @Test

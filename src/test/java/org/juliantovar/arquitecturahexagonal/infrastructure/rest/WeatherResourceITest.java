@@ -12,6 +12,7 @@ import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
 import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.WeatherApiProvider;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -101,7 +102,7 @@ public class WeatherResourceITest {
                 .statusCode(400)
                 .contentType("application/json")
                 .body("error", equalTo("INVALID_COORDINATES"))
-                .body("message", equalTo("La latitud es requerida"));
+                .body("message", equalTo(ErrorMessages.REQUIRED_LATITUDE));
     }
 
     @Test
@@ -114,7 +115,7 @@ public class WeatherResourceITest {
                 .statusCode(400)
                 .contentType("application/json")
                 .body("error", equalTo("INVALID_COORDINATES"))
-                .body("message", equalTo("La longitud es requerida"));
+                .body("message", equalTo(ErrorMessages.REQUIRED_LONGITUDE));
     }
 
     @Test
