@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Test class for {@link WeatherApiMapperUTest}
+ * Pruebas unitarias para {@link WeatherApiMapper}
  *
  * @author Julian Tovar
  * @since 10/07/2026

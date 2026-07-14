@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/current.json",
+    "queryParameters": {
+      "key": {
+        "equalTo": "test-api-key"
+      },
+      "q": {
+        "equalTo": "3.0,3.0"
+      },
+      "lang": {
+        "equalTo": "es"
+      }
+    }
+  },
+  "response": {
+    "status": 429,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": {
+        "code": 2008,
+        "message": "API key has exceeded calls per month quota."
+      }
+    }
+  }
+}
