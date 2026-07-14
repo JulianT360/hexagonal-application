@@ -11,7 +11,7 @@ quarkus:
       read-timeout: 5000
 
     weather-api:
-      url: http://api.weatherapi.com
+      url: https://api.weatherapi.com
       connect-timeout: 5000
       read-timeout: 5000
 

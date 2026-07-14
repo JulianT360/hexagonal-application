@@ -7,6 +7,7 @@ import org.juliantovar.arquitecturahexagonal.application.command.GetCurrentWeath
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
 import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.WeatherApiProvider;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 /**
  * Get current weather use case
@@ -32,19 +33,19 @@ public class GetCurrentWeatherUseCase {
     public Uni<Weather> execute(GetCurrentWeatherCommand command) {
 
         if (command == null || command.latitude() == null) {
-            throw new InvalidCoordinatesException("La latitud es requerida");
+            throw new InvalidCoordinatesException(ErrorMessages.REQUIRED_LATITUDE);
         }
 
         if (command.longitude() == null) {
-            throw new InvalidCoordinatesException("La longitud es requerida");
+            throw new InvalidCoordinatesException(ErrorMessages.REQUIRED_LONGITUDE);
         }
 
         if (command.latitude() < -90 || command.latitude() > 90) {
-            throw new InvalidCoordinatesException("La latitud debe ser un valor entre -90 y 90");
+            throw new InvalidCoordinatesException(ErrorMessages.INVALID_LATITUDE);
         }
 
         if (command.longitude() < -180 || command.longitude() > 180) {
-            throw new InvalidCoordinatesException("La longitud debe ser un valor entre -180 y 180");
+            throw new InvalidCoordinatesException(ErrorMessages.INVALID_LONGITUDE);
         }
 
         return weatherClientPort.getCurrentWeather(command.latitude(), command.longitude());
