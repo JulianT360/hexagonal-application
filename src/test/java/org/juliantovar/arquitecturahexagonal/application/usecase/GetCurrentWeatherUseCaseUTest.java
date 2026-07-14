@@ -19,10 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for {@link GetCurrentWeatherUseCase}
+ * Pruebas unitarias para {@link GetCurrentWeatherUseCase}
  *
  * @author Julian Tovar
  * @since 10/07/2026
@@ -96,6 +97,96 @@ public class GetCurrentWeatherUseCaseUTest {
                         org.mockito.ArgumentMatchers.anyDouble(),
                         org.mockito.ArgumentMatchers.anyDouble()
                 );
+    }
+
+    @Test
+    void getCurrentWeatherMinimumValidCoordinates() {
+        var command = new GetCurrentWeatherCommand(-90.0, -180.0);
+        var weatherResponse = new Weather(
+                new Coordinates(-90.0, -180.0),
+                "Antarctica",
+                -10.0,
+                -15.0,
+                1000,
+                80,
+                12.0,
+                "Frio"
+        );
+
+        when(weatherClientPort.getCurrentWeather(-90.0, -180.0))
+                .thenReturn(Uni.createFrom().item(weatherResponse));
+
+        Weather result = useCase.execute(command)
+                .await()
+                .atMost(Duration.ofSeconds(1));
+
+        assertSame(weatherResponse, result);
+        verify(weatherClientPort).getCurrentWeather(-90.0, -180.0);
+    }
+
+    @Test
+    void getCurrentWeatherMaximumValidCoordinates() {
+        var command = new GetCurrentWeatherCommand(90.0, 180.0);
+        var weatherResponse = new Weather(
+                new Coordinates(90.0, 180.0),
+                "UTC",
+                1.0,
+                0.0,
+                1000,
+                50,
+                2.0,
+                "Nublado"
+        );
+
+        when(weatherClientPort.getCurrentWeather(90.0, 180.0))
+                .thenReturn(Uni.createFrom().item(weatherResponse));
+
+        Weather result = useCase.execute(command)
+                .await()
+                .atMost(Duration.ofSeconds(1));
+
+        assertSame(weatherResponse, result);
+        verify(weatherClientPort).getCurrentWeather(90.0, 180.0);
+    }
+
+    @Test
+    void getCurrentWeatherNullCommand() {
+        InvalidCoordinatesException exception =
+                assertThrows(
+                        InvalidCoordinatesException.class,
+                        () -> useCase.execute(null)
+                );
+
+        assertEquals("La latitud es requerida", exception.getMessage());
+        verifyNoInteractions(weatherClientPort);
+    }
+
+    @Test
+    void getCurrentWeatherNullLatitude() {
+        var command = new GetCurrentWeatherCommand(null, LONGITUDE);
+
+        InvalidCoordinatesException exception =
+                assertThrows(
+                        InvalidCoordinatesException.class,
+                        () -> useCase.execute(command)
+                );
+
+        assertEquals("La latitud es requerida", exception.getMessage());
+        verifyNoInteractions(weatherClientPort);
+    }
+
+    @Test
+    void getCurrentWeatherNullLongitude() {
+        var command = new GetCurrentWeatherCommand(LATITUDE, null);
+
+        InvalidCoordinatesException exception =
+                assertThrows(
+                        InvalidCoordinatesException.class,
+                        () -> useCase.execute(command)
+                );
+
+        assertEquals("La longitud es requerida", exception.getMessage());
+        verifyNoInteractions(weatherClientPort);
     }
 
     @Test
