@@ -4,6 +4,10 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.Uni;
 import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.UnexpectedProviderException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRateLimitException;
 import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
@@ -15,7 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for Weather Resource (Integration Test) {@link WeatherResource}
+ * Pruebas de integración para el recurso de clima {@link WeatherResource}
  *
  * @author Julian Tovar
  * @since 10/07/2026
@@ -88,6 +92,32 @@ public class WeatherResourceITest {
     }
 
     @Test
+    void getCurrentWeatherMissingLatitude() {
+        given()
+                .queryParam("lon", -100.3161)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(400)
+                .contentType("application/json")
+                .body("error", equalTo("INVALID_COORDINATES"))
+                .body("message", equalTo("La latitud es requerida"));
+    }
+
+    @Test
+    void getCurrentWeatherMissingLongitude() {
+        given()
+                .queryParam("lat", 25.6866)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(400)
+                .contentType("application/json")
+                .body("error", equalTo("INVALID_COORDINATES"))
+                .body("message", equalTo("La longitud es requerida"));
+    }
+
+    @Test
     void getCurrentWeatherInvalidApiKey() {
         var latitude = 25.6866;
         var longitude = -100.3161;
@@ -119,5 +149,93 @@ public class WeatherResourceITest {
                         "message",
                         equalTo("Invalid WeatherAPI key")
                 );
+    }
+
+    @Test
+    void getCurrentWeatherNotFound() {
+        var latitude = 0.0;
+        var longitude = 0.0;
+
+        when(weatherClientPort.getCurrentWeather(latitude, longitude))
+                .thenReturn(Uni.createFrom().failure(
+                        new WeatherNotFoundException("Weather information not found")
+                ));
+
+        given()
+                .queryParam("lat", latitude)
+                .queryParam("lon", longitude)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(404)
+                .contentType("application/json")
+                .body("error", equalTo("WEATHER_NOT_FOUND"))
+                .body("message", equalTo("Weather information not found"));
+    }
+
+    @Test
+    void getCurrentWeatherProviderUnavailable() {
+        var latitude = 10.0;
+        var longitude = 20.0;
+
+        when(weatherClientPort.getCurrentWeather(latitude, longitude))
+                .thenReturn(Uni.createFrom().failure(
+                        new WeatherProviderUnavailableException("Weather service unavailable")
+                ));
+
+        given()
+                .queryParam("lat", latitude)
+                .queryParam("lon", longitude)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(503)
+                .contentType("application/json")
+                .body("error", equalTo("WEATHER_SERVICE_UNAVAILABLE"))
+                .body("message", equalTo("Weather service unavailable"));
+    }
+
+    @Test
+    void getCurrentWeatherRateLimitReached() {
+        var latitude = 11.0;
+        var longitude = 21.0;
+
+        when(weatherClientPort.getCurrentWeather(latitude, longitude))
+                .thenReturn(Uni.createFrom().failure(
+                        new WeatherRateLimitException("Weather rate limit reached")
+                ));
+
+        given()
+                .queryParam("lat", latitude)
+                .queryParam("lon", longitude)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(429)
+                .contentType("application/json")
+                .body("error", equalTo("WEATHER_RATE_LIMIT_REACHED"))
+                .body("message", equalTo("Weather rate limit reached"));
+    }
+
+    @Test
+    void getCurrentWeatherUnexpectedProviderError() {
+        var latitude = 12.0;
+        var longitude = 22.0;
+
+        when(weatherClientPort.getCurrentWeather(latitude, longitude))
+                .thenReturn(Uni.createFrom().failure(
+                        new UnexpectedProviderException("Unexpected provider error")
+                ));
+
+        given()
+                .queryParam("lat", latitude)
+                .queryParam("lon", longitude)
+                .when()
+                .get("/weather/current")
+                .then()
+                .statusCode(503)
+                .contentType("application/json")
+                .body("error", equalTo("WEATHER_SERVICE_UNAVAILABLE"))
+                .body("message", equalTo("Unexpected provider error"));
     }
 }

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/current.json",
+    "queryParameters": {
+      "key": {
+        "equalTo": "test-api-key"
+      },
+      "q": {
+        "equalTo": "1.0,1.0"
+      },
+      "lang": {
+        "equalTo": "es"
+      }
+    }
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": {
+        "code": 1002,
+        "message": "API key is invalid or not provided."
+      }
+    }
+  }
+}
