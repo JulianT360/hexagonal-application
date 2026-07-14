@@ -145,3 +145,53 @@ mvnw.cmd quarkus:dev
 - Documentación OpenAPI: si SmallRye OpenAPI está habilitado en `pom.xml`, Quarkus expone:
   - OpenAPI JSON: `http://localhost:8080/q/openapi`
   - Swagger UI: `http://localhost:8080/q/swagger-ui`
+
+## Ejecución Nativa con Docker
+
+Este proyecto puede compilarse como ejecutable nativo de Quarkus y ejecutarse dentro de un contenedor Docker basado en UBI 8.
+
+### Requisitos
+
+- Docker instalado y en ejecución
+- Maven instalado
+- Java 21
+- Acceso a internet para descargar dependencias e imágenes Docker
+- Variables de entorno/API keys:
+  - `WEATHER_API_KEY`
+  - `OPENWEATHER_API_KEY`
+
+### 1. Generar ejecutable nativo
+
+En PowerShell, ejecutar desde la raíz del proyecto:
+
+```powershell
+mvn clean package "-Dnative" `
+  "-Dquarkus.native.container-build=true" `
+  "-Dquarkus.native.container-runtime=docker" `
+  "-Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21"
+```
+Este comando genera el binario nativo en:
+`target/arquitectura-hexagonal-1.0.0-SNAPSHOT-runner`.
+
+### 2. Construir imagen Docker
+
+```powershell
+docker build --no-cache `
+  -f src/main/docker/Dockerfile.native `
+  -t weather-service:native .
+```
+
+### 3. Ejecutar contenedor Docker
+
+```powershell
+docker run --rm `
+  -p 8080:8080 `
+  -e WEATHER_API_KEY="tu_weather_api_key" `
+  -e OPENWEATHER_API_KEY="tu_openweather_api_key" `
+  weather-service:native
+```
+
+## Colección Postman
+Se incluye un archivo `postman_collection.json` con ejemplos de peticiones para probar el endpoint `/weather/current`. 
+Puedes importarlo en Postman para realizar pruebas rápidas.
+Esta ubicado en la raíz del proyecto: /docs

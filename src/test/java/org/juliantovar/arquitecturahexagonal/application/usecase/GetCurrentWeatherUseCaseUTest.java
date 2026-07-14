@@ -6,6 +6,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoor
 import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -88,7 +89,7 @@ public class GetCurrentWeatherUseCaseUTest {
                 );
 
         assertEquals(
-                "La latitud debe ser un valor entre -90 y 90",
+                ErrorMessages.INVALID_LATITUDE,
                 exception.getMessage()
         );
 
@@ -157,7 +158,7 @@ public class GetCurrentWeatherUseCaseUTest {
                         () -> useCase.execute(null)
                 );
 
-        assertEquals("La latitud es requerida", exception.getMessage());
+        assertEquals(ErrorMessages.REQUIRED_LATITUDE, exception.getMessage());
         verifyNoInteractions(weatherClientPort);
     }
 
@@ -171,7 +172,7 @@ public class GetCurrentWeatherUseCaseUTest {
                         () -> useCase.execute(command)
                 );
 
-        assertEquals("La latitud es requerida", exception.getMessage());
+        assertEquals(ErrorMessages.REQUIRED_LATITUDE, exception.getMessage());
         verifyNoInteractions(weatherClientPort);
     }
 
@@ -185,7 +186,7 @@ public class GetCurrentWeatherUseCaseUTest {
                         () -> useCase.execute(command)
                 );
 
-        assertEquals("La longitud es requerida", exception.getMessage());
+        assertEquals(ErrorMessages.REQUIRED_LONGITUDE, exception.getMessage());
         verifyNoInteractions(weatherClientPort);
     }
 
@@ -203,7 +204,7 @@ public class GetCurrentWeatherUseCaseUTest {
                 );
 
         assertEquals(
-                "La longitud debe ser un valor entre -180 y 180",
+                ErrorMessages.INVALID_LONGITUDE,
                 exception.getMessage()
         );
 
