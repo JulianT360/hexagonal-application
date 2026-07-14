@@ -190,3 +190,8 @@ docker run --rm `
   -e OPENWEATHER_API_KEY="tu_openweather_api_key" `
   weather-service:native
 ```
+
+## Colección Postman
+Se incluye un archivo `postman_collection.json` con ejemplos de peticiones para probar el endpoint `/weather/current`. 
+Puedes importarlo en Postman para realizar pruebas rápidas.
+Esta ubicado en la raíz del proyecto: /docs
