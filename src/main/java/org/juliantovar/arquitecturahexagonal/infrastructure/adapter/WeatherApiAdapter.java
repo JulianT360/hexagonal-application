@@ -76,6 +76,11 @@ public class WeatherApiAdapter implements WeatherClientPort {
                 .atMost(3)
 
                 .onFailure()
-                .invoke(error -> LOG.error("Error calling WeatherAPI"));
+                .invoke(error -> LOG.errorf(
+                        error,
+                        "Error calling WeatherAPI. type=%s message=%s",
+                        error.getClass().getName(),
+                        error.getMessage()
+                ));
     }
 }
