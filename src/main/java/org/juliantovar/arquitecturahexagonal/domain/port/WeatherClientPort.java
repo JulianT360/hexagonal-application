@@ -4,7 +4,7 @@ import io.smallrye.mutiny.Uni;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 
 /**
- * Port for the weather client.
+ * Puerto para el cliente del proveedor del clima
  *
  * @author Julian Tovar
  * @since 09/07/2026

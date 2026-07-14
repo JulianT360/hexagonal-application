@@ -6,13 +6,13 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 /**
- * Response Object for error responses.
+ * Objeto de respuesta para generar las respuestas de error
  *
- * @param timestamp Timestamp
- * @param status    Http code status
- * @param error     Error code from {@link ErrorCode}
- * @param message   Message of the error
- * @param path      Path consumed
+ * @param timestamp Fecha y hora del error
+ * @param status    Código de estatus Http
+ * @param error     Código de error de: {@link ErrorCode}
+ * @param message   Mensaje de error
+ * @param path      Path consumido
  *
  * @author Julian Tovar
  * @since 09/07/2026

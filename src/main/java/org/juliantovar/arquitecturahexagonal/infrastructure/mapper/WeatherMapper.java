@@ -12,7 +12,7 @@ import org.mapstruct.MappingConstants;
 import java.util.List;
 
 /**
- * Mapper for weather response
+ * Mapper para la respuesta del clima de OpenWeather
  *
  * @author Julian Tovar
  * @since 09/07/2026
@@ -30,10 +30,10 @@ public interface WeatherMapper {
     Weather toDomain(OpenWeatherResponseDto response);
 
     /**
-     * Method to set default value to map weather description.
+     * Metodo para establecer por defecto el valor de la descripción del clima
      *
-     * @param weather   List of {@link WeatherDescriptionDto}
-     * @return string with the first weather description
+     * @param weather   Lista de {@link WeatherDescriptionDto}
+     * @return cadena de texto con la descripción del primer elemento del clima o en su defecto un string por default
      */
     default String mapWeatherDescription(
             List<WeatherDescriptionDto> weather) {
@@ -45,10 +45,10 @@ public interface WeatherMapper {
     }
 
     /**
-     * Method to generate {@link WeatherResponse} from {@link Weather}
+     * Metodo para generar un objeto {@link WeatherResponse} de {@link Weather}
      *
-     * @param weather   Object that include weather data
-     * @return Response object with data obtainet about current weather
+     * @param weather   Objeto que incluye la informacion del clima
+     * @return Response Objeto con la información obtenida sobre el clima y las coordenadas
      */
     @Mapping(target = "temperature", source = "temperature")
     @Mapping(target = "latitude", source = "coordinates.latitude")

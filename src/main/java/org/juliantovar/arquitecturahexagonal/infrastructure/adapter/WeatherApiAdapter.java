@@ -18,6 +18,7 @@ import java.time.Duration;
 
 /**
  * Adapter class to consume Weather API.
+ * Clase adaptador para consumir el proveedor Weather API
  *
  * @author Julian Tovar
  * @since 10/07/2026
@@ -33,11 +34,11 @@ public class WeatherApiAdapter implements WeatherClientPort {
     private final WeatherApiConfiguration configuration;
 
     /**
-     * Constructor class
+     * Constructor de la clase
      *
-     * @param client            Client to consume {@link WeatherApiClient}
-     * @param mapper            Mapper to parse {@link WeatherApiMapper}
-     * @param configuration     Remote api configuration {@link WeatherApiConfiguration}
+     * @param client            Cliente a consumir {@link WeatherApiClient}
+     * @param mapper            Mapper para convertir objetos {@link WeatherApiMapper}
+     * @param configuration     Configuración de la API remota {@link WeatherApiConfiguration}
      */
     public WeatherApiAdapter(@RestClient WeatherApiClient client,
                              WeatherApiMapper mapper,
@@ -48,11 +49,11 @@ public class WeatherApiAdapter implements WeatherClientPort {
     }
 
     /**
-     * Get current weather from latitude and longitude of a location
+     * Obtener clima actual a partir de la latitud y la longitud de la ubicación
      *
-     * @param latitude      Latitude of the location.
-     * @param longitude     Longitude of the location.
-     * @return Weather data obtained {@link Uni<Weather>}
+     * @param latitude      Latitud de la ubicación
+     * @param longitude     Longitud de la ubicación
+     * @return Información del clima obtenida {@link Uni<Weather>}
      */
     @Override
     @CircuitBreaker

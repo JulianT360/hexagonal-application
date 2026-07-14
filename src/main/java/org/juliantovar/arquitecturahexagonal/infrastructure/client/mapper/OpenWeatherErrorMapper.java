@@ -12,7 +12,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherTi
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 /**
- * Exception mapper for open weather response.
+ * Mapper de error para respuestas del proveedor OpenWeather
  *
  * @author Julian Tovar
  * @since 09/07/2026

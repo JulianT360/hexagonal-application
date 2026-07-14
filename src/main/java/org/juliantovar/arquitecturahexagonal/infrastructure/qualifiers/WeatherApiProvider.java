@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Qualifier for Weather Api provider
+ * Qualifier para el proveedor WeatherAPI
  *
  * @author Julian Tovar
  * @since 10/07/2026

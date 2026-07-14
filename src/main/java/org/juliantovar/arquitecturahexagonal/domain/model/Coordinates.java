@@ -3,10 +3,10 @@ package org.juliantovar.arquitecturahexagonal.domain.model;
 import lombok.Builder;
 
 /**
- * Domain class for coordinates data
+ * Clase de dominio para las coordenadas
  *
- * @param latitude      Latitude of the location
- * @param longitude     Longitude of the location
+ * @param latitude      Latitud de la ubicación
+ * @param longitude     Longitud de la ubicación
  *
  * @author Julian Tovar
  * @since 10/07/2026

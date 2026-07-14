@@ -3,16 +3,16 @@ package org.juliantovar.arquitecturahexagonal.domain.model;
 import lombok.Builder;
 
 /**
- * Base object weather for app domain.
+ * Clase de dominio para el objeto base del clima
  *
- * @param coordinates      Latitude and longitude of the location.
- * @param timezone      Timezone of the location.
- * @param temperature   Temperature of the location.
- * @param feelsLike     Feels Like of the location.
- * @param pressure      Atmospheric pressure of the location.
- * @param humidity      Humidity percent of the location.
- * @param windSpeed     Wind Speed of the location.
- * @param description   Description about the weather of the location.
+ * @param coordinates   Latitud y longitud de la ubicación
+ * @param timezone      Zona horaria de la ubicación
+ * @param temperature   Temperatura de la ubicación
+ * @param feelsLike     Sensación térmica de la ubicación
+ * @param pressure      Presión atmosférica de la ubicación
+ * @param humidity      Porcentaje de humedad de la ubicación
+ * @param windSpeed     Velocidad del viento de la ubicación
+ * @param description   Descripción sobre el clima de la ubicación
  *
  * @author Julian Tovar
  * @since 09/07/2026

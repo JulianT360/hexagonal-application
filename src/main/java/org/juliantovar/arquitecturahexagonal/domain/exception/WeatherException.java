@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception;
 
 /**
- * Generic exception for weather domain.
+ * Excepción genérica de la api
  *
  * @author Julian Tovar
  * @since 09/07/2026

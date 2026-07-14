@@ -11,7 +11,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRa
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 /**
- * Error mapper for weather api error responses
+ * Mapper de error para respuestas del proveedor Weather API
  *
  * @author Julian Tovar
  * @since 10/07/2026

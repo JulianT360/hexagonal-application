@@ -3,12 +3,12 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwe
 import lombok.Builder;
 
 /**
- * Data transfer object for response open weather.
+ * DTO para la respuesta de OpenWeather
  *
- * @param lat       Latitude
- * @param lon       Longitude
- * @param timezone  Timezone
- * @param current   {@link CurrentWeatherDto}
+ * @param lat       Latitud
+ * @param lon       Longitud
+ * @param timezone  Zona horaria
+ * @param current   Clima actual: {@link CurrentWeatherDto}
  *
  * @author Julian Tovar
  * @since 09/07/2026

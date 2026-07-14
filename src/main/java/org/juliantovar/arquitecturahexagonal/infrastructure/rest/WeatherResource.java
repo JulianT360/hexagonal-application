@@ -14,7 +14,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwea
 import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper;
 
 /**
- * Resource of weather
+ * Recurso RESTful del clima
  *
  * @author Julian Tovar
  * @since 09/07/2026
@@ -33,11 +33,11 @@ public class WeatherResource {
     }
 
     /**
-     * Endpoint to get the current weather.
+     * Endpoint para consultar el clima actual
      *
-     * @param latitude  Latitude of the location
-     * @param longitude Longitude of the location
-     * @return Object {@link Uni<WeatherResponse>} with current weather data
+     * @param latitude  Latitud de la ubicación
+     * @param longitude Longitud de la ubicación
+     * @return Objeto {@link Uni<WeatherResponse>} con la información del clima actual
      */
     @GET
     @Path("/current")

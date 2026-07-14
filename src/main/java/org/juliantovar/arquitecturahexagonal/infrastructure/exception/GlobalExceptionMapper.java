@@ -16,7 +16,7 @@ import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherPr
 import java.time.LocalDateTime;
 
 /**
- * Mapper for global exceptions
+ * Mapper global para las excepciones de la api
  *
  * @author Julian Tovar
  * @since 09/07/2026
@@ -30,10 +30,10 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
     UriInfo uriInfo;
 
     /**
-     * Method to generate response object from exception.
+     * Metodo que genera un objeto de respuesta a partir de la excepción
      *
-     * @param exception the exception to map to a response.
-     * @return object {@link Response} with error data.
+     * @param exception La excepción para convertirla a respuesta
+     * @return objeto {@link Response} con la información del error.
      *
      */
     @Override
@@ -95,13 +95,13 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
     }
 
     /**
-     * Method to build response error.
+     * Metodo para construir la respuesta de error
      *
-     * @param exception     Exception {@link Exception}
-     * @param status        Http status code {@link Response.Status}
-     * @param errorCode     Error code from {@link ErrorCode}
-     * @param message       Error message
-     * @return Object {@link Response} with error data from exception.
+     * @param exception     Excepción {@link Exception}
+     * @param status        Código de estado HTTP {@link Response.Status}
+     * @param errorCode     Código de error desde {@link ErrorCode}
+     * @param message       Mensaje de error
+     * @return Objeto {@link Response} con los datos del error provenientes de la excepción.
      *
      */
     private Response buildResponse(

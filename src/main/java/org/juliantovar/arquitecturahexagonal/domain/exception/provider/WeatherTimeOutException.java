@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
 
 /**
- * Exception class for time out exceptions
+ * Excepción para time out
  *
  * @author Julian Tovar
  * @since 09/07/2026

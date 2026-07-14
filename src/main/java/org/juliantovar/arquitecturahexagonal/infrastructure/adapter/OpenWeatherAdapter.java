@@ -8,6 +8,7 @@ import org.jboss.logging.Logger;
 import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalServiceException;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 import org.juliantovar.arquitecturahexagonal.domain.port.WeatherClientPort;
+import org.juliantovar.arquitecturahexagonal.infrastructure.client.WeatherApiClient;
 import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.OpenWeatherProvider;
 import org.juliantovar.arquitecturahexagonal.infrastructure.client.OpenWeatherClient;
 import org.juliantovar.arquitecturahexagonal.infrastructure.config.OpenWeatherConfiguration;
@@ -16,7 +17,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.mapper.WeatherMapper
 import java.time.Duration;
 
 /**
- * Adapter to consume open weather client.
+ * Adaptador para consumir al proveedor del clima
  *
  * @author Julian Tovar
  * @since 09/07/2026
@@ -32,11 +33,11 @@ public class OpenWeatherAdapter implements WeatherClientPort {
     private final OpenWeatherConfiguration configuration;
 
     /**
-     * Constructor
+     * Constructor de la clase
      *
-     * @param client        Client to consume {@link OpenWeatherClient}
-     * @param mapper        Mapper {@link WeatherMapper}
-     * @param configuration Application configuration {@link OpenWeatherConfiguration}
+     * @param client            Cliente a consumir {@link WeatherApiClient}
+     * @param mapper            Mapper para convertir objetos {@link WeatherMapper}
+     * @param configuration     Configuración de la API remota {@link OpenWeatherConfiguration}
      */
     public  OpenWeatherAdapter(@RestClient OpenWeatherClient client,
                                WeatherMapper mapper,
@@ -47,11 +48,11 @@ public class OpenWeatherAdapter implements WeatherClientPort {
     }
 
     /**
-     * Get current weather from latitude and longitude of a location
+     * Obtener clima actual a partir de la latitud y la longitud de la ubicación
      *
-     * @param latitude      Latitude of the location.
-     * @param longitude     Longitude of the location.
-     * @return Weather data obtained {@link Uni<Weather>}
+     * @param latitude      Latitud de la ubicación
+     * @param longitude     Longitud de la ubicación
+     * @return Información del clima obtenida {@link Uni<Weather>}
      */
     @Override
     @CircuitBreaker

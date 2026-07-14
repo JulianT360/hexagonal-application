@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
 /**
- * Enumerator for error codes.
+ * Enumerador para los códigos de error
  *
  * @author Julian Tovar
  * @since 09/07/2026

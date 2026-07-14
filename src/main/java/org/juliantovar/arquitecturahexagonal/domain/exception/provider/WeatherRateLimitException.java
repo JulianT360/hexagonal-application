@@ -3,7 +3,7 @@ package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherException;
 
 /**
- * Exception class for rate limit exception
+ * Excepción para escenario de limite de consumo alcanzado
  *
  * @author Julian Tovar
  * @since 09/07/2026

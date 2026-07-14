@@ -3,10 +3,10 @@ package org.juliantovar.arquitecturahexagonal.application.command;
 import lombok.Builder;
 
 /**
- * Command to get the current weather.
+ * Commando para consultar el clima actual.
  *
- * @param latitude      Latitude of the location.
- * @param longitude     Longitude of the location.
+ * @param latitude      Latitud de la ubicación.
+ * @param longitude     Longitud de la ubicación.
  * @author Julian Tovar
  * @since 09/07/2026
  */

@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.shared;
 
 /**
- * Class with error messages
+ * Mensajes de error
  *
  * @author Julian Tovar
  * @since 09/07/2026

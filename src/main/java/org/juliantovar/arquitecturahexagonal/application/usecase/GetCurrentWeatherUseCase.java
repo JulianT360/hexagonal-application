@@ -10,7 +10,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.qualifiers.WeatherAp
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 /**
- * Get current weather use case
+ * Caso de uso para obtener el clima actual
  *
  * @author Julian Tovar
  * @since 09/07/2026

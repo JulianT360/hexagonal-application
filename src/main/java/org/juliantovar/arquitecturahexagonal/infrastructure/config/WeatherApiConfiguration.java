@@ -3,7 +3,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.config;
 import io.smallrye.config.ConfigMapping;
 
 /**
- * Configuration interaface to consume Weather API.
+ * Interfaz de configuración para el proveedor WeatherAPI
  *
  * @author Julian Tovar
  * @since 10/07/2026

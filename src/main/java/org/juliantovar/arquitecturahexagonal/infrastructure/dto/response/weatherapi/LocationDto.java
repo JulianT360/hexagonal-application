@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 /**
- * Data transfer object for weather api response.
+ * DTO para la respuesta de WeatherAPI
  *
- * @param name      City name
- * @param region    State Name
- * @param country   Country name
- * @param latitude  Latitude of the location
- * @param longitude Longitude of the location
- * @param timezone  Timezone of the location
+ * @param name      Nombre de la ciudad
+ * @param region    Nombre del estado
+ * @param country   Nombre del país
+ * @param latitude  Latitud de la ubicación
+ * @param longitude Longitud de la ubicación
+ * @param timezone  Zona horaria de la ubicación
  *
  * @author Julian Tovar
  * @since 09/07/2026

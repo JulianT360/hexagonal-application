@@ -3,7 +3,7 @@ package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherException;
 
 /**
- * Exception class for external service exceptions
+ * Excepción para excepciones externas del sistema (proveedor del api)
  *
  * @author Julian Tovar
  * @since 09/07/2026

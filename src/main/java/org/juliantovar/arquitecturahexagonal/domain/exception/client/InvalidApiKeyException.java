@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception.client;
 
 /**
- * Exception for invalid api key scenario.
+ * Excepción para escenario de api key no válida
  *
  * @author Julian Tovar
  * @since 09/07/2026

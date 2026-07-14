@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.shared;
 
 /**
- * Constants
+ * Constantes
  *
  * @author Julian Tovar
  * @since 09/07/2026

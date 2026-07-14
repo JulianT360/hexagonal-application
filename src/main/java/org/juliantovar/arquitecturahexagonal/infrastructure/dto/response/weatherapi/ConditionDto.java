@@ -3,9 +3,9 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weathe
 import lombok.Builder;
 
 /**
- * Data transfer object for condition description for current weather.
+ * DTO para la descripción de la condición del clima actual
  *
- * @param text  Description of the current weather
+ * @param text  Descripción del clima actual
  *
  * @author Julian Tovar
  * @since 10/07/2026

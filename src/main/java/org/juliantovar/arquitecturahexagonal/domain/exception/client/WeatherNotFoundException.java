@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception.client;
 
 /**
- * Exception for weather data not found scenario.
+ * Excepción para escenario de información del clima no encontrada
  *
  * @author Julian Tovar
  * @since 09/07/2026

@@ -12,7 +12,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.OpenWe
 import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather.OpenWeatherResponseDto;
 
 /**
- * Rest client for open weather API.
+ * Cliente rest para consumir proveedor OpenWeather API
  *
  * @author Julian Tovar
  * @since 09/07/2026
@@ -24,14 +24,14 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwea
 public interface OpenWeatherClient {
 
     /**
-     * Endpoint to consume and get data of the current weather.
+     * Endpoint para consumir y obtener la información del clima actual
      *
-     * @param latitude      Latitude of the location
-     * @param longitude     Longitude of the location
-     * @param apiKey        Api key to consume REST API
-     * @param units         Metric units
-     * @param language      Language
-     * @return Data of the current weather {@link Uni<OpenWeatherResponseDto>}
+     * @param latitude      Latitud de la ubicación
+     * @param longitude     Longitud de la ubicación
+     * @param apiKey        API Key para consumir el API Rest
+     * @param units         Unidades de medida (metric, imperial, standard)
+     * @param language      Lenguaje para la respuesta (es, en, fr, etc.)
+     * @return Información del clima actual: {@link Uni<OpenWeatherResponseDto>}
      */
     @GET
     @Path("/current")

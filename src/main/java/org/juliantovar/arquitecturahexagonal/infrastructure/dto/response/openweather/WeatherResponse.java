@@ -3,17 +3,17 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwe
 import lombok.Builder;
 
 /**
- * Response object for weather data.
+ * Objeto de respuesta para la información del clima
  *
- * @param latitude      Latitude
- * @param longitude     Longitude
- * @param timezone      Timezone
- * @param temperature   Temperature
- * @param feelsLike     Feels Like
- * @param pressure      Pressure
- * @param humidity      Humidity
- * @param windSpeed     Wind Speed
- * @param description   Description
+ * @param latitude      Latitud
+ * @param longitude     Longitud
+ * @param timezone      Zona horaria
+ * @param temperature   Temperatura
+ * @param feelsLike     Sensación Térmica
+ * @param pressure      Presión Atmósferica
+ * @param humidity      Húmedad
+ * @param windSpeed     Velocidad del Viento
+ * @param description   Descripcion del clima
  *
  * @author Julian Tovar
  * @since 09/07/2026

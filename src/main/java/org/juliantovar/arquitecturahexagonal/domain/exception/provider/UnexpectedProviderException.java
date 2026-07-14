@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
 
 /**
- * Exception class for unexpected provider exceptions
+ * Excepción para excepciones no esperadas del proveedor
  *
  * @author Julian Tovar
  * @since 09/07/2026

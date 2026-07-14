@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 /**
- * Mapper class for weather api response
+ * Clase mapper para mapear la respuesta del api del clima
  *
  * @author Julian Tovar
  * @since 10/07/2026
@@ -28,10 +28,10 @@ public interface WeatherApiMapper {
     Weather toDomain(WeatherApiResponseDto response);
 
     /**
-     * Parse from {@link WeatherApiResponseDto} to {@link Coordinates}
+     * Convierte de {@link WeatherApiResponseDto} a {@link Coordinates}
      *
-     * @param location   Response location from weather api {@link LocationDto}
-     * @return coordinates object
+     * @param location   Respuesta de ubicación desde WeatherApi {@link LocationDto}
+     * @return objeto con las coordenadas de la ubicación
      */
     default Coordinates toCoordinates(LocationDto location) {
         return new Coordinates(

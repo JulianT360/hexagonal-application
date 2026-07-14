@@ -1,7 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
 
 /**
- * Exception for provider unavailable exceptions
+ * Excepción para escenario de proveedor no disponible
  *
  * @author Julian Tovar
  * @since 09/07/2026

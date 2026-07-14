@@ -3,7 +3,7 @@ package org.juliantovar.arquitecturahexagonal.domain.exception.client;
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherException;
 
 /**
- * Exception class for client exceptions
+ * Excepción para las excepciones del cliente
  *
  * @author Julian Tovar
  * @since 09/07/2026

@@ -6,14 +6,14 @@ import lombok.Builder;
 import java.util.List;
 
 /**
- * Data transfer object of the current weather.
+ * DTO para el clima actual.
  *
- * @param temp          Temperature
- * @param feelsLike     Feels like
- * @param pressure      Pressure
- * @param humidity      Humidity
- * @param windSpeed     Wind speed
- * @param weather       Weather
+ * @param temp          Temperatura
+ * @param feelsLike     Sensación térmica
+ * @param pressure      Presión atmosférica
+ * @param humidity      Húmedad
+ * @param windSpeed     Velocidad del Viento
+ * @param weather       Clima
  *
  * @author Julian Tovar
  * @since 09/07/2026

@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 /**
- * Data transfer object for current weather data.
+ * DTO para la información del clima actual
  *
- * @param temperature   Temperature in Celsius
- * @param windSpeed     Wind speed in Kilometers per hour
- * @param pressure      Pressure in milibar
- * @param humidity      Humidity percent
- * @param feelsLike     Temperature feels like in Celsius
- * @param condition     Description of the current weather
+ * @param temperature   Temperatura en Celsius
+ * @param windSpeed     Velocidad del viento en kilómetros por hora
+ * @param pressure      Presión en milibares
+ * @param humidity      Humedad en porcentaje
+ * @param feelsLike     Sensación térmica en Celsius
+ * @param condition     Descripción del clima actual
  *
  * @author Julian Tovar
  * @since 10/07/2026

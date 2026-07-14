@@ -3,9 +3,9 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwe
 import lombok.Builder;
 
 /**
- * Data transfer object for weather description.
+ * DTO para la descripción del clima
  *
- * @param description   Description of the weather.
+ * @param description   Descripción del clima
  *
  * @author Julian Tovar
  * @since 09/07/2026

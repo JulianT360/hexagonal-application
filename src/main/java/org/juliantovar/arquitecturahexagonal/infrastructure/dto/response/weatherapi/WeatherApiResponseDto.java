@@ -3,10 +3,10 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weathe
 import lombok.Builder;
 
 /**
- * Data transfer objecto for weather api response.
+ * DTO para la respuesta de WeatherAPI
  *
- * @param location  Object {@link LocationDto} with location data.
- * @param current   Object {@link CurrentDto} with current weather data.
+ * @param location  Objeto {@link LocationDto} con la información de la ubicación.
+ * @param current   Objeto {@link CurrentDto} con los datos del clima actual.
  *
  * @author Julian Tovar
  * @since 10/07/2026

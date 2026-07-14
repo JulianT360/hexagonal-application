@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Qualifier for Open Weather provider
+ * Qualifier para el proveedor OpenWeather
  *
  * @author Julian Tovar
  * @since 10/07/2026
