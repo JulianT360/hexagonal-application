@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/current.json",
+    "queryParameters": {
+      "key": {
+        "equalTo": "test-api-key"
+      },
+      "q": {
+        "equalTo": "25.6866,-100.3161"
+      },
+      "lang": {
+        "equalTo": "es"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "location": {
+        "name": "Monterrey",
+        "region": "Nuevo Leon",
+        "country": "Mexico",
+        "lat": 25.6866,
+        "lon": -100.3161,
+        "tz_id": "America/Monterrey"
+      },
+      "current": {
+        "temp_c": 31.5,
+        "wind_kph": 15.2,
+        "pressure_mb": 1012,
+        "humidity": 55,
+        "feelslike_c": 34.1,
+        "condition": {
+          "text": "Soleado"
+        }
+      }
+    }
+  }
+}
