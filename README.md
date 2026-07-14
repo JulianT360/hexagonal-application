@@ -10,6 +10,7 @@ Este repositorio es un proyecto de ejemplo/ejercicio que implementa un servicio 
 - [Configuración y variables de entorno](#configuración-y-variables-de-entorno)
 - [Perfil de test](#perfil-de-test)
 - [Construir, ejecutar y testear](#construir-ejecutar-y-testear)
+- [Ejecucion Nativa con Docker](#ejecución-nativa-con-docker)
 
 ---
 
