@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi;
 
+import lombok.Builder;
+
 /**
  * Data transfer objecto for weather api response.
  *
@@ -9,6 +11,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weathe
  * @author Julian Tovar
  * @since 10/07/2026
  */
+@Builder
 public record WeatherApiResponseDto(
         LocationDto location,
         CurrentDto current) {

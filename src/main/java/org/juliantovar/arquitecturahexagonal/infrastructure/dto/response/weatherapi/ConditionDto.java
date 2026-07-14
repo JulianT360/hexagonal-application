@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi;
 
+import lombok.Builder;
+
 /**
  * Data transfer object for condition description for current weather.
  *
@@ -8,6 +10,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weathe
  * @author Julian Tovar
  * @since 10/07/2026
  */
+@Builder
 public record ConditionDto(
         String text) {
 }

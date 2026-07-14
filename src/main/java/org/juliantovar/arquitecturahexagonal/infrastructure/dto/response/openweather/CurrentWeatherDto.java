@@ -1,6 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record CurrentWeatherDto(
         Double temp,
         @JsonProperty("feels_like")

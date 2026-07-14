@@ -1,6 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 /**
  * Data transfer object for current weather data.
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Julian Tovar
  * @since 10/07/2026
  */
+@Builder
 public record CurrentDto(
         @JsonProperty("temp_c")
         Double temperature,

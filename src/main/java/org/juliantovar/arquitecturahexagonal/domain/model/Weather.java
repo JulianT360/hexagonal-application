@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.model;
 
+import lombok.Builder;
+
 /**
  * Base object weather for app domain.
  *
@@ -15,6 +17,7 @@ package org.juliantovar.arquitecturahexagonal.domain.model;
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record Weather (
         Coordinates coordinates,
         String timezone,

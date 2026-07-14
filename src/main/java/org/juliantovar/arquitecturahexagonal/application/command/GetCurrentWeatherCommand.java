@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.application.command;
 
+import lombok.Builder;
+
 /**
  * Command to get the current weather.
  *
@@ -8,6 +10,7 @@ package org.juliantovar.arquitecturahexagonal.application.command;
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record GetCurrentWeatherCommand (Double latitude,
                                         Double longitude) {
 }

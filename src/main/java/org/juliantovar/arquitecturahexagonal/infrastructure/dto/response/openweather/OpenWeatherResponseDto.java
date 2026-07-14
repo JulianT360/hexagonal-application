@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather;
 
+import lombok.Builder;
+
 /**
  * Data transfer object for response open weather.
  *
@@ -11,6 +13,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwe
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record OpenWeatherResponseDto(
         Double lat,
         Double lon,

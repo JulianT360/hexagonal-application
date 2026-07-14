@@ -1,6 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 /**
  * Data transfer object for weather api response.
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record LocationDto(
         String name,
         String region,

@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openweather;
 
+import lombok.Builder;
+
 /**
  * Data transfer object for weather description.
  *
@@ -8,6 +10,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.openwe
  * @author Julian Tovar
  * @since 09/07/2026
  */
+@Builder
 public record WeatherDescriptionDto(
         String description
 ) {

@@ -1,5 +1,7 @@
 package org.juliantovar.arquitecturahexagonal.domain.model;
 
+import lombok.Builder;
+
 /**
  * Domain class for coordinates data
  *
@@ -9,6 +11,7 @@ package org.juliantovar.arquitecturahexagonal.domain.model;
  * @author Julian Tovar
  * @since 10/07/2026
  */
+@Builder
 public record Coordinates(
         Double latitude,
         Double longitude) {
