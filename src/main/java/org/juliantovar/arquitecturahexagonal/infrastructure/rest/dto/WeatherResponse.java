@@ -1,11 +1,13 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.rest.dto;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.Builder;
 
 /**
  * Objeto de respuesta para la información del clima.
  */
 @Builder
+@RegisterForReflection
 public record WeatherResponse(
         Double latitude,
         Double longitude,
