@@ -9,14 +9,17 @@ import org.juliantovar.arquitecturahexagonal.application.ports.out.WeatherProvid
 import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 
+/**
+ * Servicio del clima.
+ */
 @ApplicationScoped
 @AllArgsConstructor
 public class WeatherService implements GetCurrentWeatherUseCase {
 
-    private final WeatherProviderPort weatherProvider;
+  private final WeatherProviderPort weatherProvider;
 
-    @Override
-    public Uni<Weather> getCurrentWeather(@NotNull Coordinates coordinates) {
-        return weatherProvider.getCurrentWeather(coordinates);
-    }
+  @Override
+  public Uni<Weather> getCurrentWeather(@NotNull Coordinates coordinates) {
+    return weatherProvider.getCurrentWeather(coordinates);
+  }
 }

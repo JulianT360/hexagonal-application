@@ -4,9 +4,16 @@ import io.smallrye.mutiny.Uni;
 import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
 
+/**
+ * Caso de uso para obtener el clima actual.
+ */
 @FunctionalInterface
 public interface GetCurrentWeatherUseCase {
-
-    Uni<Weather> getCurrentWeather(Coordinates coordinates);
-
+  /**
+   * Obtiene el clima actual.
+   *
+   * @param coordinates Coordenadas de la ubicacion
+   * @return clima actual
+   */
+  Uni<Weather> getCurrentWeather(Coordinates coordinates);
 }
