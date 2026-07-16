@@ -1,15 +1,16 @@
 package org.juliantovar.arquitecturahexagonal.domain.exception;
 
 /**
- * Excepción genérica de la api
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * Excepción genérica de negocio.
  */
 public class WeatherException extends RuntimeException {
 
-    public WeatherException(String message) {
-        super(message);
-    }
-
+  /**
+   * Constructor.
+   *
+   * @param message mensaje
+   */
+  public WeatherException(String message) {
+    super(message);
+  }
 }
