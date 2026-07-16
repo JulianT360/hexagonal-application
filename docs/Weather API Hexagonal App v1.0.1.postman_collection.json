@@ -13,13 +13,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/weather/current?lat=25.677191&lon=-100.280980",
+          "raw": "http://localhost:8080/v1/weather/current?lat=25.677191&lon=-100.280980",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "v1",
             "weather",
             "current"
           ],
@@ -33,16 +34,6 @@
               "key": "lon",
               "value": "-100.280980",
               "description": "Longitud de la ubicación"
-            },
-            {
-              "key": "lat",
-              "value": "91",
-              "disabled": true
-            },
-            {
-              "key": "lon",
-              "value": "181",
-              "disabled": true
             }
           ]
         }
@@ -54,24 +45,27 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=25.677672&lon=-100.280371",
+              "raw": "http://localhost:8080/v1/weather/current?lat=25.677191&lon=-100.280980",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
               "query": [
                 {
                   "key": "lat",
-                  "value": "25.677672"
+                  "value": "25.677191",
+                  "description": "Latitud de la ubicación"
                 },
                 {
                   "key": "lon",
-                  "value": "-100.280371"
+                  "value": "-100.280980",
+                  "description": "Longitud de la ubicación"
                 }
               ]
             }
@@ -81,16 +75,16 @@
           "_postman_previewlanguage": null,
           "header": [
             {
-              "key": "content-length",
-              "value": "177"
-            },
-            {
               "key": "Content-Type",
               "value": "application/json;charset=UTF-8"
+            },
+            {
+              "key": "content-length",
+              "value": "177"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"latitude\": 25.677,\n    \"longitude\": -100.257,\n    \"timezone\": \"America/Monterrey\",\n    \"temperature\": 27.1,\n    \"feelsLike\": 28.6,\n    \"pressure\": 1016,\n    \"humidity\": 66,\n    \"windSpeed\": 7.2,\n    \"description\": \"Soleado\"\n}"
+          "body": "{\n    \"latitude\": 25.677,\n    \"longitude\": -100.257,\n    \"timezone\": \"America/Monterrey\",\n    \"temperature\": 25.6,\n    \"feelsLike\": 22.3,\n    \"pressure\": 1017,\n    \"humidity\": 76,\n    \"windSpeed\": 6.5,\n    \"description\": \"Soleado\"\n}"
         },
         {
           "name": "Clima Actual - Información del clima no encontrada",
@@ -98,13 +92,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=89&lon=179",
+              "raw": "http://localhost:8080/v1/weather/current?lat=89&lon=179",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -124,7 +119,7 @@
           },
           "status": "Not Found",
           "code": 404,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -132,11 +127,11 @@
             },
             {
               "key": "content-length",
-              "value": "151"
+              "value": "155"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T16:54:39.791352\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T09:23:51.3375528\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Api Key No Valida",
@@ -144,13 +139,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=89&lon=179",
+              "raw": "http://localhost:8080/v1/weather/current?lat=89&lon=179",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -170,7 +166,7 @@
           },
           "status": "Unauthorized",
           "code": 401,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -178,11 +174,11 @@
             },
             {
               "key": "content-length",
-              "value": "144"
+              "value": "147"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:08:12.206756\",\n    \"status\": 401,\n    \"error\": \"INVALID_API_KEY\",\n    \"message\": \"Invalid Provider API Key\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:34:46.061784\",\n    \"status\": 401,\n    \"error\": \"INVALID_API_KEY\",\n    \"message\": \"Invalid Provider API Key\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Sin Latitud",
@@ -190,13 +186,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lon=-100.280980",
+              "raw": "http://localhost:8080/v1/weather/current?lon=-100.280980",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -217,7 +214,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -225,11 +222,11 @@
             },
             {
               "key": "content-length",
-              "value": "144"
+              "value": "147"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:09:52.366355\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude is required\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:30:28.946839\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude is required\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Sin Longitud",
@@ -237,13 +234,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=25.677191",
+              "raw": "http://localhost:8080/v1/weather/current?lat=25.677191",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -264,7 +262,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -272,11 +270,11 @@
             },
             {
               "key": "content-length",
-              "value": "145"
+              "value": "147"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:10:14.262405\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude is required\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:31:40.97181\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude is required\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Valores Maximos",
@@ -284,13 +282,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=90&lon=180",
+              "raw": "http://localhost:8080/v1/weather/current?lat=90&lon=180",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -310,7 +309,7 @@
           },
           "status": "Not Found",
           "code": 404,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -318,11 +317,11 @@
             },
             {
               "key": "content-length",
-              "value": "151"
+              "value": "154"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:10:39.824223\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:32:08.033316\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Valores Minimos",
@@ -330,13 +329,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=-90&lon=-180",
+              "raw": "http://localhost:8080/v1/weather/current?lat=-90&lon=-180",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -356,7 +356,7 @@
           },
           "status": "Not Found",
           "code": 404,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -364,11 +364,11 @@
             },
             {
               "key": "content-length",
-              "value": "151"
+              "value": "154"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:10:58.969872\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:32:24.950284\",\n    \"status\": 404,\n    \"error\": \"WEATHER_NOT_FOUND\",\n    \"message\": \"Weather information not found\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Latitud Excede Valor Maximo",
@@ -376,13 +376,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=91&lon=-100.280980",
+              "raw": "http://localhost:8080/v1/weather/current?lat=91&lon=-100.280980",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -402,7 +403,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -410,11 +411,11 @@
             },
             {
               "key": "content-length",
-              "value": "167"
+              "value": "170"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:12:02.706271\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude must be a value between -90 and 90\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:32:50.171875\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude must be a value between -90 and 90\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Latitud Excede Valor Minimo",
@@ -422,13 +423,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=-91&lon=-100.280980",
+              "raw": "http://localhost:8080/v1/weather/current?lat=-91&lon=-100.280980",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -448,7 +450,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -456,11 +458,11 @@
             },
             {
               "key": "content-length",
-              "value": "167"
+              "value": "170"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:11:29.128904\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude must be a value between -90 and 90\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:33:07.536813\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Latitude must be a value between -90 and 90\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Longitud Excede Valor Maximo",
@@ -468,13 +470,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=25.677191&lon=181",
+              "raw": "http://localhost:8080/v1/weather/current?lat=25.677191&lon=181",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -494,7 +497,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -502,11 +505,11 @@
             },
             {
               "key": "content-length",
-              "value": "170"
+              "value": "173"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:12:46.856978\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude must be a value between -180 and 180\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:33:25.908747\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude must be a value between -180 and 180\",\n    \"path\": \"/v1/weather/current\"\n}"
         },
         {
           "name": "Clima Actual - Longitud Excede Valor Minimo",
@@ -514,13 +517,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/weather/current?lat=25.677191&lon=-181",
+              "raw": "http://localhost:8080/v1/weather/current?lat=25.677191&lon=-181",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "v1",
                 "weather",
                 "current"
               ],
@@ -540,7 +544,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "json",
           "header": [
             {
               "key": "Content-Type",
@@ -548,11 +552,11 @@
             },
             {
               "key": "content-length",
-              "value": "170"
+              "value": "173"
             }
           ],
           "cookie": [],
-          "body": "{\n    \"timestamp\": \"2026-07-14T17:12:25.464312\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude must be a value between -180 and 180\",\n    \"path\": \"/weather/current\"\n}"
+          "body": "{\n    \"timestamp\": \"2026-07-16T21:33:40.427565\",\n    \"status\": 400,\n    \"error\": \"INVALID_COORDINATES\",\n    \"message\": \"Longitude must be a value between -180 and 180\",\n    \"path\": \"/v1/weather/current\"\n}"
         }
       ]
     }
