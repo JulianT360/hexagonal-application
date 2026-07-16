@@ -19,7 +19,7 @@
         <compiler-plugin.version>3.15.0</compiler-plugin.version>
 
         <jacoco.version>0.8.12</jacoco.version>
-        <coverage.minimum>0.80</coverage.minimum>
+        <coverage.minimum>0.90</coverage.minimum>
     </properties>
 
     <dependencyManagement>
@@ -100,6 +100,12 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+        </dependency>
+
+        <!-- Validacion de datos -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
 
         <!-- Tests -->
