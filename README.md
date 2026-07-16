@@ -10,6 +10,7 @@ Este repositorio es un proyecto de ejemplo/ejercicio que implementa un servicio 
 - [Configuración y variables de entorno](#configuración-y-variables-de-entorno)
 - [Perfil de test](#perfil-de-test)
 - [Construir, ejecutar y testear](#construir-ejecutar-y-testear)
+- [Ejecucion Nativa con Docker](#ejecución-nativa-con-docker)
 
 ---
 
@@ -17,11 +18,11 @@ Este repositorio es un proyecto de ejemplo/ejercicio que implementa un servicio 
 
 - **Nombre de la aplicación** (configurable): `weather-service`
 - **Puerto por defecto**: `8080` (configurable en `src/main/resources/application.yml`)
-- **Endpoint principal**: `/weather/current?lat={lat}&lon={lon}`
+- **Endpoint principal**: `/v1/weather/current?lat={lat}&lon={lon}`
 
 ## Tecnologías y dependencias
 
-- Java 17+ (configurado en `pom.xml`)
+- Java 21 (configurado en `pom.xml`)
 - Quarkus (REST, REST Client, Jackson, SmallRye OpenAPI)
 - MapStruct (mapeo DTO <-> dominio)
 - Lombok (generación de código)
@@ -30,18 +31,58 @@ Este repositorio es un proyecto de ejemplo/ejercicio que implementa un servicio 
 - Configuración en YAML (quarkus-config-yaml)
 
 ## Estructura del proyecto
+```text
+hexagonal-application/
+├── docs/
+│   └── postman_collection.json
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── org/juliantovar/arquitecturahexagonal/
+│   │   │       ├── application/
+│   │   │       │   ├── ports/
+│   │   │       │   │   ├── in/
+│   │   │       │   │   └── out/
+│   │   │       │   └── service/
+│   │   │       ├── domain/
+│   │   │       │   ├── exception/
+│   │   │       │   └── model/
+│   │   │       ├── infrastructure/
+│   │   │       │   ├── adapter/
+│   │   │       │   │   ├── in/
+│   │   │       │   │   └── out/
+│   │   │       │   ├── client/
+│   │   │       │   ├── config/
+│   │   │       │   ├── exception/
+│   │   │       │   └── rest/
+│   │   │       └── shared/
+│   │   └── resources/
+│   │       └── application.yml
+│   └── test/
+│       ├── java/
+│       │   └── org/juliantovar/arquitecturahexagonal/
+│       └── resources/
+│           ├── application.yml
+│           └── wiremock/
+│               ├── mappings/
+│               └── __files/
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+└── README.md
+```
 
-- `src/main/java/org/juliantovar/arquitecturahexagonal/application` - casos de uso
-- `src/main/java/org/juliantovar/arquitecturahexagonal/domain` - modelos y puertos del dominio
-- `src/main/java/org/juliantovar/arquitecturahexagonal/infrastructure` - adaptadores, clientes REST, mappers, recursos
-  - `infrastructure/rest/WeatherResource.java` - recurso REST público
-  - `infrastructure/client/OpenWeatherClient.java` - cliente REST para OpenWeather
-  - `infrastructure/client/WeatherApiClient.java` - cliente REST para WeatherAPI
-- `src/main/resources/application.yml` - configuración (clientes, keys, puertos)
+### Descripción de carpetas principales
+
+- `application`: contiene los casos de uso y puertos de entrada/salida.
+- `domain`: contiene los modelos y excepciones propias del dominio.
+- `infrastructure`: contiene adaptadores, clientes externos, configuración, recursos REST y mappers.
+- `shared`: contiene utilidades o constantes compartidas.
+- `src/test`: contiene pruebas unitarias, pruebas de integración y recursos de WireMock.
 
 ## Endpoints REST
 
-### GET /weather/current
+### GET /v1/weather/current
 
 Descripción: devuelve la información de clima actual para unas coordenadas (lat/lon).
 
@@ -57,14 +98,15 @@ Respuestas principales:
 Ejemplo de petición (curl):
 
 ```bash
-curl -s "http://localhost:8080/weather/current?lat=40.4168&lon=-3.7038" -H "Accept: application/json"
+curl -s "http://localhost:8080/v1/weather/current?lat=40.4168&lon=-3.7038" -H "Accept: application/json"
 ```
 
 Ejemplo de respuesta:
 
 ```json
 {
-  "coordinates": { "latitude": 40.4168, "longitude": -3.7038 },
+  "latitude": 40.4168, 
+  "longitude": -3.7038,
   "timezone": "Europe/Madrid",
   "temperature": 25.3,
   "feelsLike": 26.1,
@@ -77,10 +119,10 @@ Ejemplo de respuesta:
 
 ## Configuración y variables de entorno
 
-La configuración principal se encuentra en `src/main/resources/application.yml`. Los clientes REST externos usan claves que se resuelven desde **variables de entorno**.
+La configuración principal se encuentra en `src/main/resources/application.yml`. 
+Los clientes REST externos usan claves que se resuelven desde **variables de entorno**.
 
-- `openweather.api-key` → variable de entorno `OPENWEATHER_API_KEY`
-- `weatherapi.api-key` → variable de entorno `WEATHER_API_KEY`
+- `out.weatherapi.config.api-key` → variable de entorno `WEATHER_API_KEY`
 
 ### Definir variables de entorno
 
@@ -89,14 +131,12 @@ Antes de ejecutar la aplicación, define las variables de entorno con tus claves
 **Windows (PowerShell):**
 
 ```powershell
-$env:OPENWEATHER_API_KEY = "tu_openweather_api_key"
 $env:WEATHER_API_KEY = "tu_weatherapi_api_key"
 ```
 
 **Linux / macOS (bash):**
 
 ```bash
-export OPENWEATHER_API_KEY="tu_openweather_api_key"
 export WEATHER_API_KEY="tu_weatherapi_api_key"
 ```
 
@@ -158,7 +198,6 @@ Este proyecto puede compilarse como ejecutable nativo de Quarkus y ejecutarse de
 - Acceso a internet para descargar dependencias e imágenes Docker
 - Variables de entorno/API keys:
   - `WEATHER_API_KEY`
-  - `OPENWEATHER_API_KEY`
 
 ### 1. Generar ejecutable nativo
 
@@ -187,11 +226,10 @@ docker build --no-cache `
 docker run --rm `
   -p 8080:8080 `
   -e WEATHER_API_KEY="tu_weather_api_key" `
-  -e OPENWEATHER_API_KEY="tu_openweather_api_key" `
   weather-service:native
 ```
 
 ## Colección Postman
-Se incluye un archivo `postman_collection.json` con ejemplos de peticiones para probar el endpoint `/weather/current`. 
+Se incluye un archivo `postman_collection.json` con ejemplos de peticiones para probar el endpoint `/v1/weather/current`. 
 Puedes importarlo en Postman para realizar pruebas rápidas.
 Esta ubicado en la raíz del proyecto: /docs

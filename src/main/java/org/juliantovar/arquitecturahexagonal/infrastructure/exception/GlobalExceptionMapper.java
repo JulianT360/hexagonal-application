@@ -1,131 +1,114 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
+import io.quarkus.logging.Log;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import org.jboss.logging.Logger;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoordinatesException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalServiceException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRateLimitException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
-
 import java.time.LocalDateTime;
+import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidCoordinatesException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.InvalidApiKeyException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.ProviderRateLimitException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.WeatherProviderUnavailableException;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 /**
- * Mapper for global exceptions
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * Mapper global para las excepciones de la api.
  */
 @Provider
 public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
 
-    private static final Logger LOG = Logger.getLogger(GlobalExceptionMapper.class);
+  @Context
+  UriInfo uriInfo;
 
-    @Context
-    UriInfo uriInfo;
+  /**
+   * Metodo que genera un objeto de respuesta a partir de la excepción.
+   *
+   * @param exception La excepción para convertirla a respuesta
+   * @return objeto {@link Response} con la información del error.
+   */
+  @Override
+  public Response toResponse(Exception exception) {
 
-    /**
-     * Method to generate response object from exception.
-     *
-     * @param exception the exception to map to a response.
-     * @return object {@link Response} with error data.
-     *
-     */
-    @Override
-    public Response toResponse(Exception exception) {
+    return switch (exception) {
+      case InvalidApiKeyException invalidApiKey -> buildResponse(
+              exception,
+              Response.Status.UNAUTHORIZED,
+              ErrorCodes.INVALID_API_KEY,
+              invalidApiKey.getMessage());
 
-        if(exception instanceof InvalidApiKeyException invalidApiKey) {
-            return buildResponse(
-                    exception,
-                    Response.Status.UNAUTHORIZED,
-                    ErrorCode.INVALID_API_KEY,
-                    invalidApiKey.getMessage());
-        }
+      case WeatherProviderUnavailableException unavailable -> buildResponse(
+              exception,
+              Response.Status.SERVICE_UNAVAILABLE,
+              ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
+              unavailable.getMessage());
 
-        if(exception instanceof WeatherProviderUnavailableException unavailable) {
-            return buildResponse(
-                    exception,
-                    Response.Status.SERVICE_UNAVAILABLE,
-                    ErrorCode.WEATHER_SERVICE_UNAVAILABLE,
-                    unavailable.getMessage());
-        }
+      case ProviderRateLimitException rateLimit -> buildResponse(
+              exception,
+              Response.Status.TOO_MANY_REQUESTS,
+              ErrorCodes.WEATHER_RATE_LIMIT_REACHED,
+              rateLimit.getMessage());
 
-        if(exception instanceof WeatherRateLimitException rateLimit) {
-            return buildResponse(
-                    exception,
-                    Response.Status.TOO_MANY_REQUESTS,
-                    ErrorCode.WEATHER_RATE_LIMIT_REACHED,
-                    rateLimit.getMessage());
-        }
+      case WeatherNotFoundException notFound -> buildResponse(
+              exception,
+              Response.Status.NOT_FOUND,
+              ErrorCodes.WEATHER_NOT_FOUND,
+              notFound.getMessage());
 
-        if(exception instanceof WeatherNotFoundException notFound) {
-            return buildResponse(
-                    exception,
-                    Response.Status.NOT_FOUND,
-                    ErrorCode.WEATHER_NOT_FOUND,
-                    notFound.getMessage());
-        }
+      case InvalidCoordinatesException invalid -> buildResponse(
+              exception,
+              Response.Status.BAD_REQUEST,
+              ErrorCodes.INVALID_COORDINATES,
+              invalid.getMessage());
 
-        if(exception instanceof InvalidCoordinatesException invalid) {
-            return buildResponse(
-                    exception,
-                    Response.Status.BAD_REQUEST,
-                    ErrorCode.INVALID_COORDINATES,
-                    invalid.getMessage());
-        }
+      case ExternalServiceException external -> buildResponse(
+              exception,
+              Response.Status.SERVICE_UNAVAILABLE,
+              ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
+              external.getMessage());
 
-        if(exception instanceof ExternalServiceException external) {
-            return buildResponse(
-                    exception,
-                    Response.Status.SERVICE_UNAVAILABLE,
-                    ErrorCode.WEATHER_SERVICE_UNAVAILABLE,
-                    external.getMessage());
-        }
+      default -> buildResponse(
+              exception,
+              Response.Status.INTERNAL_SERVER_ERROR,
+              ErrorCodes.INTERNAL_SERVER_ERROR,
+              ErrorMessages.UNEXPECTED_SERVER_ERROR);
+    };
+  }
 
-        return buildResponse(
-                exception,
-                Response.Status.INTERNAL_SERVER_ERROR,
-                ErrorCode.INTERNAL_SERVER_ERROR,
-                "Unexpected server error");
-    }
+  /**
+   * Metodo para construir la respuesta de error.
+   *
+   * @param exception  Excepción {@link Exception}
+   * @param status     Código de estado HTTP {@link Response.Status}
+   * @param errorCodes Código de error desde {@link ErrorCodes}
+   * @param message    Mensaje de error
+   * @return Objeto {@link Response} con los datos del error provenientes de la excepción.
+   *
+   */
+  private Response buildResponse(
+          Exception exception,
+          Response.Status status,
+          ErrorCodes errorCodes,
+          String message) {
 
-    /**
-     * Method to build response error.
-     *
-     * @param exception     Exception {@link Exception}
-     * @param status        Http status code {@link Response.Status}
-     * @param errorCode     Error code from {@link ErrorCode}
-     * @param message       Error message
-     * @return Object {@link Response} with error data from exception.
-     *
-     */
-    private Response buildResponse(
-            Exception exception,
-            Response.Status status,
-            ErrorCode errorCode,
-            String message) {
+    Log.debugf(exception,
+            "Generating error response. status={0} code={1}",
+            status.getStatusCode(),
+            errorCodes);
 
-        LOG.warnv(exception,
-                "Generating error response. status={0} code={1}",
-                status.getStatusCode(),
-                errorCode);
+    ErrorResponse response = new ErrorResponse(
+            LocalDateTime.now(),
+            status.getStatusCode(),
+            errorCodes,
+            message,
+            uriInfo.getPath()
+    );
 
-        ErrorResponse response = new ErrorResponse(
-                LocalDateTime.now(),
-                status.getStatusCode(),
-                errorCode,
-                message,
-                uriInfo.getPath()
-        );
-
-        return Response
-                .status(status)
-                .entity(response)
-                .build();
-    }
+    return Response
+            .status(status)
+            .entity(response)
+            .build();
+  }
 }

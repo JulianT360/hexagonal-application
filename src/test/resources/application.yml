@@ -1,0 +1,13 @@
+quarkus:
+  rest-client:
+    weather-api:
+      url: http://localhost:${quarkus.wiremock.devservices.port}
+  log:
+    level: WARN
+
+out:
+  weatherapi:
+    config:
+      api-key: test-api-key
+      client:
+        language: es

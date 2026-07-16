@@ -5,11 +5,6 @@ quarkus:
     port: 8080
 
   rest-client:
-    openweather-api:
-      url: https://api.openweathermap.org
-      connect-timeout: 5000
-      read-timeout: 5000
-
     weather-api:
       url: https://api.weatherapi.com
       connect-timeout: 5000
@@ -27,34 +22,9 @@ quarkus:
   jackson:
     fail-on-unknown-properties: false
 
-openweather:
-  api-key: ${OPENWEATHER_API_KEY}
-  client:
-    units: metric
-    language: es
-
-weatherapi:
-  api-key: ${WEATHER_API_KEY}
-  client:
-    language: es
-
-"%test":
-  quarkus:
-    rest-client:
-      weather-api:
-        url: http://localhost:9999
-      openweather-api:
-        url: http://localhost:9999
-    log:
-      level: WARN
-
+out:
   weatherapi:
-    api-key: test-api-key
-    client:
-      language: es
-
-  openweather:
-    api-key: test-api-key
-    client:
-      units: metric
-      language: es
+    config:
+      api-key: ${WEATHER_API_KEY}
+      client:
+        language: es
