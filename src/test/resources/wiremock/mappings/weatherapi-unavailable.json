@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/current.json",
+    "queryParameters": {
+      "key": {
+        "equalTo": "test-api-key"
+      },
+      "q": {
+        "equalTo": "4.0,4.0"
+      },
+      "lang": {
+        "equalTo": "es"
+      }
+    }
+  },
+  "response": {
+    "status": 503,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "weatherapi-unavailable-response.json"
+  }
+}

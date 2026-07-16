@@ -1,0 +1,30 @@
+quarkus:
+  application:
+    name: weather-service
+  http:
+    port: 8080
+
+  rest-client:
+    weather-api:
+      url: https://api.weatherapi.com
+      connect-timeout: 5000
+      read-timeout: 5000
+
+  log:
+    level: INFO
+    category:
+      "com.julian.weather":
+        level: DEBUG
+
+  swagger-ui:
+    always-include: true
+
+  jackson:
+    fail-on-unknown-properties: false
+
+out:
+  weatherapi:
+    config:
+      api-key: ${WEATHER_API_KEY}
+      client:
+        language: es

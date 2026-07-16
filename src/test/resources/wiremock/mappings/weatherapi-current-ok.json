@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/current.json",
+    "queryParameters": {
+      "key": {
+        "equalTo": "test-api-key"
+      },
+      "q": {
+        "equalTo": "25.6866,-100.3161"
+      },
+      "lang": {
+        "equalTo": "es"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "weatherapi-current-ok-response.json"
+  }
+}
