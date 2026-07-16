@@ -46,7 +46,7 @@ public class WeatherApiAdapter implements WeatherProviderPort {
    * Obtener clima actual a partir de la latitud y la longitud de la ubicación.
    *
    * @param coordinates Coordenadas de la ubicación
-   * @return Información del clima obtenida {@link Uni<Weather>}
+   * @return Información del clima obtenida del proveedor
    */
   @Override
   @CircuitBreaker

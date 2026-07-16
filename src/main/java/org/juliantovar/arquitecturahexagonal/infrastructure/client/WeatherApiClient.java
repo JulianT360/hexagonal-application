@@ -24,7 +24,7 @@ public interface WeatherApiClient {
    * @param apiKey      API Key para consumir el API Rest
    * @param coordinates Coordenadas de la ubicación para obtener el clima actual (latitud,longitud)
    * @param language    Lenguaje para la respuesta (es, en, fr, etc.)
-   * @return información del clima actual: {@link Uni<WeatherApiResponseDto>}
+   * @return información del clima actual
    */
   @GET
   @Path("/v1/current.json")
