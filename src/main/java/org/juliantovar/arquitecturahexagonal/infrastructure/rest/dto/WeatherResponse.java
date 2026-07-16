@@ -3,10 +3,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.rest.dto;
 import lombok.Builder;
 
 /**
- * Objeto de respuesta para la información del clima
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * Objeto de respuesta para la información del clima.
  */
 @Builder
 public record WeatherResponse(

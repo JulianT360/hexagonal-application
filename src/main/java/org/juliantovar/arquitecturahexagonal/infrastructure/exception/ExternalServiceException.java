@@ -3,15 +3,17 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherException;
 
 /**
- * Excepción para excepciones externas del sistema (proveedor del api)
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * Excepción para excepciones externas del sistema (proveedor del api).
  */
 public class ExternalServiceException extends WeatherException {
 
-    public ExternalServiceException(String message) {
-        super(message);
-    }
+  /**
+   * Constructor.
+   *
+   * @param message mensaje
+   */
+  public ExternalServiceException(String message) {
+    super(message);
+  }
 
 }

@@ -3,13 +3,17 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider;
 import org.juliantovar.arquitecturahexagonal.infrastructure.exception.ExternalServiceException;
 
 /**
- * Excepción para escenario de proveedor no disponible
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * Excepción para escenario de proveedor no disponible.
  */
 public class WeatherProviderUnavailableException extends ExternalServiceException {
-    public WeatherProviderUnavailableException(String message) {
-        super(message);
-    }
+
+  /**
+   * Constructor.
+   *
+   * @param message mensaje de error
+   */
+  public WeatherProviderUnavailableException(String message) {
+    super(message);
+  }
+
 }

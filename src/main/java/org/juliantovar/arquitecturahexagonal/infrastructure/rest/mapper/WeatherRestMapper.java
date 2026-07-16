@@ -9,20 +9,30 @@ import org.mapstruct.MappingConstants;
 
 /**
  * Mapper para convertir del modelo de dominio {@link Weather}
- * al objeto de respuesta {@link WeatherResponse}
- *
- * @author Julian Tovar
- * @since 15/07/2026
+ * al objeto de respuesta {@link WeatherResponse}.
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.CDI)
 public interface WeatherRestMapper {
 
-    @Mapping(target = "latitude", source = "coordinates.latitude")
-    @Mapping(target = "longitude", source = "coordinates.longitude")
-    WeatherResponse domainToResponse(Weather model);
+  /**
+   * Mapea del modelo de dominio {@link Weather} a la respuesta {@link WeatherResponse}.
+   *
+   * @param model Objeto de dominio {@link Weather}
+   * @return objeto de respuesta {@link WeatherResponse}
+   */
+  @Mapping(target = "latitude", source = "coordinates.latitude")
+  @Mapping(target = "longitude", source = "coordinates.longitude")
+  WeatherResponse domainToResponse(Weather model);
 
-    @Mapping(target = "latitude", source = "latitude")
-    @Mapping(target = "longitude", source = "longitude")
-    Coordinates domainToCoordinates(Double latitude, Double longitude);
+  /**
+   * Mapea de los valores datos al objeto de dominio {@link Coordinates}.
+   *
+   * @param latitude latitud de la ubicacion
+   * @param longitude longitud de la ubicacion
+   * @return objeto de dominio {@link Coordinates}
+   */
+  @Mapping(target = "latitude", source = "latitude")
+  @Mapping(target = "longitude", source = "longitude")
+  Coordinates domainToCoordinates(Double latitude, Double longitude);
 
 }
