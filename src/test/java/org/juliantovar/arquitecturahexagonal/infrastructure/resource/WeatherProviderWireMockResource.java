@@ -16,7 +16,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
  * @author Julian Tovar
  * @since 13/07/2026
  */
-public class WeatherApiWireMockResource implements QuarkusTestResourceLifecycleManager {
+public class WeatherProviderWireMockResource implements QuarkusTestResourceLifecycleManager {
 
     private static WireMockServer wireMockServer;
 
