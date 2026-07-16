@@ -8,8 +8,8 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.WeatherApiErrorMapper;
-import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi.WeatherApiResponseDto;
+import org.juliantovar.arquitecturahexagonal.infrastructure.client.mapper.WeatherProviderErrorMapper;
+import org.juliantovar.arquitecturahexagonal.infrastructure.client.dto.WeatherApiResponseDto;
 
 /**
  *  Cliente rest para consumir proveedor Weather API
@@ -17,9 +17,7 @@ import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weather
  * @author Julian Tovar
  * @since 10/07/2026
  */
-@Path("/v1")
-@Produces(MediaType.APPLICATION_JSON)
-@RegisterProvider(WeatherApiErrorMapper.class)
+@RegisterProvider(WeatherProviderErrorMapper.class)
 @RegisterRestClient(configKey = "weather-api")
 public interface WeatherApiClient {
 
@@ -32,7 +30,8 @@ public interface WeatherApiClient {
      * @return Información del clima actual: {@link Uni<WeatherApiResponseDto>}
      */
     @GET
-    @Path("/current.json")
+    @Path("/v1/current.json")
+    @Produces(MediaType.APPLICATION_JSON)
     Uni<WeatherApiResponseDto> getCurrentWeather(
             @QueryParam("key") String apiKey,
             @QueryParam("q") String coordinates,

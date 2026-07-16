@@ -1,17 +1,17 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
+import io.quarkus.logging.Log;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import org.jboss.logging.Logger;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoordinatesException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.ExternalServiceException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRateLimitException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidCoordinatesException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.InvalidApiKeyException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.WeatherProviderUnavailableException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.ProviderRateLimitException;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +23,6 @@ import java.time.LocalDateTime;
  */
 @Provider
 public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
-
-    private static final Logger LOG = Logger.getLogger(GlobalExceptionMapper.class);
 
     @Context
     UriInfo uriInfo;
@@ -39,59 +37,49 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
 
-        if(exception instanceof InvalidApiKeyException invalidApiKey) {
-            return buildResponse(
+        return switch (exception) {
+            case InvalidApiKeyException invalidApiKey -> buildResponse(
                     exception,
                     Response.Status.UNAUTHORIZED,
-                    ErrorCode.INVALID_API_KEY,
+                    ErrorCodes.INVALID_API_KEY,
                     invalidApiKey.getMessage());
-        }
 
-        if(exception instanceof WeatherProviderUnavailableException unavailable) {
-            return buildResponse(
+            case WeatherProviderUnavailableException unavailable -> buildResponse(
                     exception,
                     Response.Status.SERVICE_UNAVAILABLE,
-                    ErrorCode.WEATHER_SERVICE_UNAVAILABLE,
+                    ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
                     unavailable.getMessage());
-        }
 
-        if(exception instanceof WeatherRateLimitException rateLimit) {
-            return buildResponse(
+            case ProviderRateLimitException rateLimit -> buildResponse(
                     exception,
                     Response.Status.TOO_MANY_REQUESTS,
-                    ErrorCode.WEATHER_RATE_LIMIT_REACHED,
+                    ErrorCodes.WEATHER_RATE_LIMIT_REACHED,
                     rateLimit.getMessage());
-        }
 
-        if(exception instanceof WeatherNotFoundException notFound) {
-            return buildResponse(
+            case WeatherNotFoundException notFound -> buildResponse(
                     exception,
                     Response.Status.NOT_FOUND,
-                    ErrorCode.WEATHER_NOT_FOUND,
+                    ErrorCodes.WEATHER_NOT_FOUND,
                     notFound.getMessage());
-        }
 
-        if(exception instanceof InvalidCoordinatesException invalid) {
-            return buildResponse(
+            case InvalidCoordinatesException invalid -> buildResponse(
                     exception,
                     Response.Status.BAD_REQUEST,
-                    ErrorCode.INVALID_COORDINATES,
+                    ErrorCodes.INVALID_COORDINATES,
                     invalid.getMessage());
-        }
 
-        if(exception instanceof ExternalServiceException external) {
-            return buildResponse(
+            case ExternalServiceException external -> buildResponse(
                     exception,
                     Response.Status.SERVICE_UNAVAILABLE,
-                    ErrorCode.WEATHER_SERVICE_UNAVAILABLE,
+                    ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
                     external.getMessage());
-        }
 
-        return buildResponse(
-                exception,
-                Response.Status.INTERNAL_SERVER_ERROR,
-                ErrorCode.INTERNAL_SERVER_ERROR,
-                "Unexpected server error");
+            default -> buildResponse(
+                    exception,
+                    Response.Status.INTERNAL_SERVER_ERROR,
+                    ErrorCodes.INTERNAL_SERVER_ERROR,
+                    ErrorMessages.UNEXPECTED_SERVER_ERROR);
+        };
     }
 
     /**
@@ -99,7 +87,7 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
      *
      * @param exception     Excepción {@link Exception}
      * @param status        Código de estado HTTP {@link Response.Status}
-     * @param errorCode     Código de error desde {@link ErrorCode}
+     * @param errorCodes     Código de error desde {@link ErrorCodes}
      * @param message       Mensaje de error
      * @return Objeto {@link Response} con los datos del error provenientes de la excepción.
      *
@@ -107,18 +95,18 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
     private Response buildResponse(
             Exception exception,
             Response.Status status,
-            ErrorCode errorCode,
+            ErrorCodes errorCodes,
             String message) {
 
-        LOG.warnv(exception,
+        Log.debugf(exception,
                 "Generating error response. status={0} code={1}",
                 status.getStatusCode(),
-                errorCode);
+                errorCodes);
 
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 status.getStatusCode(),
-                errorCode,
+                errorCodes,
                 message,
                 uriInfo.getPath()
         );

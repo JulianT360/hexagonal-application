@@ -1,9 +1,7 @@
-package org.juliantovar.arquitecturahexagonal.infrastructure.mapper;
+package org.juliantovar.arquitecturahexagonal.infrastructure.adapter.out.mapper;
 
-import org.juliantovar.arquitecturahexagonal.domain.model.Coordinates;
 import org.juliantovar.arquitecturahexagonal.domain.model.Weather;
-import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi.LocationDto;
-import org.juliantovar.arquitecturahexagonal.infrastructure.dto.response.weatherapi.WeatherApiResponseDto;
+import org.juliantovar.arquitecturahexagonal.infrastructure.client.dto.WeatherApiResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -25,17 +23,6 @@ public interface WeatherApiMapper {
     @Mapping(target = "humidity", source = "current.humidity")
     @Mapping(target = "windSpeed", source = "current.windSpeed")
     @Mapping(target = "description", source = "current.condition.text")
-    Weather toDomain(WeatherApiResponseDto response);
+    Weather dtoToDomain(WeatherApiResponseDto response);
 
-    /**
-     * Convierte de {@link WeatherApiResponseDto} a {@link Coordinates}
-     *
-     * @param location   Respuesta de ubicación desde WeatherApi {@link LocationDto}
-     * @return objeto con las coordenadas de la ubicación
-     */
-    default Coordinates toCoordinates(LocationDto location) {
-        return new Coordinates(
-                location.latitude(),
-                location.longitude());
-    }
 }

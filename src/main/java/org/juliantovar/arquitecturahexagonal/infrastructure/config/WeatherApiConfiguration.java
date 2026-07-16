@@ -8,7 +8,7 @@ import io.smallrye.config.ConfigMapping;
  * @author Julian Tovar
  * @since 10/07/2026
  */
-@ConfigMapping(prefix = "weatherapi")
+@ConfigMapping(prefix = "out.weatherapi.config")
 public interface WeatherApiConfiguration {
     String apiKey();
     Client client();
