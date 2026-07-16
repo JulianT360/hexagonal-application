@@ -1,4 +1,4 @@
-package org.juliantovar.arquitecturahexagonal.domain.exception.provider;
+package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
 import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherException;
 
