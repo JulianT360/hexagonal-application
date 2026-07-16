@@ -1,22 +1,13 @@
 package org.juliantovar.arquitecturahexagonal.domain.model;
 
 import lombok.Builder;
+import lombok.Data;
 
-/**
- * Clase de dominio para las coordenadas
- *
- * @param latitude      Latitud de la ubicación
- * @param longitude     Longitud de la ubicación
- *
- * @author Julian Tovar
- * @since 10/07/2026
- */
+@Data
 @Builder
-public record Coordinates(
-        Double latitude,
-        Double longitude) {
+public class Coordinates {
 
-    public String asQuery() {
-        return latitude + "," + longitude;
-    }
+    private Double latitude;
+    private Double longitude;
+
 }

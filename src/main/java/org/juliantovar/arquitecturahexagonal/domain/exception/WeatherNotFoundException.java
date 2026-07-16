@@ -1,4 +1,4 @@
-package org.juliantovar.arquitecturahexagonal.domain.exception.client;
+package org.juliantovar.arquitecturahexagonal.domain.exception;
 
 /**
  * Excepción para escenario de información del clima no encontrada
@@ -6,7 +6,7 @@ package org.juliantovar.arquitecturahexagonal.domain.exception.client;
  * @author Julian Tovar
  * @since 09/07/2026
  */
-public class WeatherNotFoundException extends ClientException {
+public class WeatherNotFoundException extends WeatherException {
 
     public WeatherNotFoundException(String message) {
         super(message);
