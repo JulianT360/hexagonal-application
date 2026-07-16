@@ -1,26 +1,25 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-
 import java.time.LocalDateTime;
+import lombok.Builder;
+
 
 /**
- * Response Object for error responses.
+ * Objeto de respuesta para generar las respuestas de error.
  *
- * @param timestamp Timestamp
- * @param status    Http code status
- * @param error     Error code from {@link ErrorCode}
- * @param message   Message of the error
- * @param path      Path consumed
- *
- * @author Julian Tovar
- * @since 09/07/2026
+ * @param timestamp Fecha y hora del error
+ * @param status    Código de estatus Http
+ * @param error     Código de error de: {@link ErrorCodes}
+ * @param message   Mensaje de error
+ * @param path      Path consumido
  */
+@Builder
 @RegisterForReflection
 public record ErrorResponse(
         LocalDateTime timestamp,
         int status,
-        ErrorCode error,
+        ErrorCodes error,
         String message,
         String path
 ) {
