@@ -6,7 +6,7 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
  * @author Julian Tovar
  * @since 09/07/2026
  */
-public enum ErrorCode {
+public enum ErrorCodes {
     INVALID_COORDINATES,
     WEATHER_NOT_FOUND,
     WEATHER_SERVICE_UNAVAILABLE,

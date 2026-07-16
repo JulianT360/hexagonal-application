@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  *
  * @param timestamp Fecha y hora del error
  * @param status    Código de estatus Http
- * @param error     Código de error de: {@link ErrorCode}
+ * @param error     Código de error de: {@link ErrorCodes}
  * @param message   Mensaje de error
  * @param path      Path consumido
  *
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public record ErrorResponse(
         LocalDateTime timestamp,
         int status,
-        ErrorCode error,
+        ErrorCodes error,
         String message,
         String path
 ) {
