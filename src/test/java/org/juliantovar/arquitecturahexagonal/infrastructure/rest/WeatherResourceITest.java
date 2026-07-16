@@ -2,9 +2,14 @@ package org.juliantovar.arquitecturahexagonal.infrastructure.rest;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import org.juliantovar.arquitecturahexagonal.infrastructure.resource.WeatherProviderWireMockResource;
 import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 import org.junit.jupiter.api.Test;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,8 +25,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class WeatherResourceITest {
 
     @Test
-    void getCurrentWeatherFromWeatherApiOk() {
-        given()
+    void getCurrentWeatherFromWeatherApiOk() throws IOException, JSONException {
+        String actualResponse = given()
                 .queryParam("lat", 25.6866)
                 .queryParam("lon", -100.3161)
                 .when()
@@ -29,15 +34,13 @@ public class WeatherResourceITest {
                 .then()
                 .statusCode(200)
                 .contentType("application/json")
-                .body("latitude", equalTo(25.6866f))
-                .body("longitude", equalTo(-100.3161f))
-                .body("timezone", equalTo("America/Monterrey"))
-                .body("temperature", equalTo(31.5f))
-                .body("feelsLike", equalTo(34.1f))
-                .body("pressure", equalTo(1012))
-                .body("humidity", equalTo(55))
-                .body("windSpeed", equalTo(15.2f))
-                .body("description", equalTo("Soleado"));
+                .extract()
+                .asString();
+
+        JSONAssert.assertEquals(
+                readExpectedJson("expected/current-weather-ok-response.json"),
+                actualResponse,
+                JSONCompareMode.STRICT);
 
         WeatherProviderWireMockResource.verifyCurrentWeatherRequest("25.6866,-100.3161");
     }
@@ -96,5 +99,11 @@ public class WeatherResourceITest {
                 .contentType("application/json")
                 .body("error", equalTo("WEATHER_SERVICE_UNAVAILABLE"))
                 .body("message", equalTo("Weather service unavailable"));
+    }
+
+    private String readExpectedJson(String resourcePath) throws IOException {
+        try (var inputStream = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
     }
 }
