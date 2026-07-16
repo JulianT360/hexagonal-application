@@ -1,0 +1,11 @@
+{
+  "latitude": 25.6866,
+  "longitude": -100.3161,
+  "timezone": "America/Monterrey",
+  "temperature": 31.5,
+  "feelsLike": 34.1,
+  "pressure": 1012,
+  "humidity": 55,
+  "windSpeed": 15.2,
+  "description": "Soleado"
+}
