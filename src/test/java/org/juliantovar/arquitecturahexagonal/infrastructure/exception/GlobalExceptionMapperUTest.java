@@ -1,111 +1,128 @@
 package org.juliantovar.arquitecturahexagonal.infrastructure.exception;
 
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidApiKeyException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.InvalidCoordinatesException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.client.WeatherNotFoundException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.UnexpectedProviderException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherProviderUnavailableException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherRateLimitException;
-import org.juliantovar.arquitecturahexagonal.domain.exception.provider.WeatherTimeOutException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.InvalidCoordinatesException;
+import org.juliantovar.arquitecturahexagonal.domain.exception.WeatherNotFoundException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.InvalidApiKeyException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.ProviderRateLimitException;
+import org.juliantovar.arquitecturahexagonal.infrastructure.exception.provider.WeatherProviderUnavailableException;
+import org.juliantovar.arquitecturahexagonal.shared.ErrorMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Field;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * Pruebas unitarias para {@link GlobalExceptionMapper}
- *
- * @author Julian Tovar
- * @since 13/07/2026
- */
-public class GlobalExceptionMapperUTest {
+@ExtendWith(MockitoExtension.class)
+class GlobalExceptionMapperUTest {
+
+    private static final String PATH = "/v1/weather/current";
 
     private GlobalExceptionMapper mapper;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
+        var uriInfo = mock(UriInfo.class);
+        when(uriInfo.getPath()).thenReturn(PATH);
+
         mapper = new GlobalExceptionMapper();
 
-        UriInfo uriInfo = mock(UriInfo.class);
-        when(uriInfo.getPath()).thenReturn("/weather/current");
-        mapper.uriInfo = uriInfo;
+        Field field = GlobalExceptionMapper.class.getDeclaredField("uriInfo");
+        field.setAccessible(true);
+        field.set(mapper, uriInfo);
     }
 
     @Test
-    void mapInvalidApiKey() {
-        var response = mapper.toResponse(new InvalidApiKeyException("Invalid key"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(401, response.getStatus());
-        assertEquals(ErrorCode.INVALID_API_KEY, entity.error());
-        assertEquals("Invalid key", entity.message());
-        assertEquals("/weather/current", entity.path());
+    void verifyInvalidApiKey() {
+        assertErrorResponse(
+                mapper.toResponse(new InvalidApiKeyException(ErrorMessages.INVALID_API_KEY)),
+                Response.Status.UNAUTHORIZED,
+                ErrorCodes.INVALID_API_KEY,
+                ErrorMessages.INVALID_API_KEY);
     }
 
     @Test
-    void mapInvalidCoordinates() {
-        var response = mapper.toResponse(new InvalidCoordinatesException("Invalid coordinates"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(400, response.getStatus());
-        assertEquals(ErrorCode.INVALID_COORDINATES, entity.error());
+    void verifyProviderUnavailable() {
+        assertErrorResponse(
+                mapper.toResponse(new WeatherProviderUnavailableException(ErrorMessages.WEATHER_SERVICE_UNAVAILABLE)),
+                Response.Status.SERVICE_UNAVAILABLE,
+                ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
+                ErrorMessages.WEATHER_SERVICE_UNAVAILABLE);
     }
 
     @Test
-    void mapWeatherNotFound() {
-        var response = mapper.toResponse(new WeatherNotFoundException("Not found"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(404, response.getStatus());
-        assertEquals(ErrorCode.WEATHER_NOT_FOUND, entity.error());
+    void verifyRateLimit() {
+        assertErrorResponse(
+                mapper.toResponse(new ProviderRateLimitException(ErrorMessages.WEATHER_RATE_LIMIT_REACHED)),
+                Response.Status.TOO_MANY_REQUESTS,
+                ErrorCodes.WEATHER_RATE_LIMIT_REACHED,
+                ErrorMessages.WEATHER_RATE_LIMIT_REACHED);
     }
 
     @Test
-    void mapProviderUnavailable() {
-        var response = mapper.toResponse(new WeatherProviderUnavailableException("Unavailable"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(503, response.getStatus());
-        assertEquals(ErrorCode.WEATHER_SERVICE_UNAVAILABLE, entity.error());
+    void verifyWeatherNotFound() {
+        assertErrorResponse(
+                mapper.toResponse(new WeatherNotFoundException(ErrorMessages.WEATHER_NOT_FOUND)),
+                Response.Status.NOT_FOUND,
+                ErrorCodes.WEATHER_NOT_FOUND,
+                ErrorMessages.WEATHER_NOT_FOUND);
     }
 
     @Test
-    void mapRateLimit() {
-        var response = mapper.toResponse(new WeatherRateLimitException("Rate limit"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(429, response.getStatus());
-        assertEquals(ErrorCode.WEATHER_RATE_LIMIT_REACHED, entity.error());
+    void verifyInvalidCoordinates() {
+        assertErrorResponse(
+                mapper.toResponse(new InvalidCoordinatesException("Latitude is required")),
+                Response.Status.BAD_REQUEST,
+                ErrorCodes.INVALID_COORDINATES,
+                "Latitude is required");
     }
 
     @Test
-    void mapTimeoutAsUnavailable() {
-        var response = mapper.toResponse(new WeatherTimeOutException("Timeout"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(503, response.getStatus());
-        assertEquals(ErrorCode.WEATHER_SERVICE_UNAVAILABLE, entity.error());
+    void verifyExternalServiceException() {
+        assertErrorResponse(
+                mapper.toResponse(new ExternalServiceException("Provider unavailable")),
+                Response.Status.SERVICE_UNAVAILABLE,
+                ErrorCodes.WEATHER_SERVICE_UNAVAILABLE,
+                "Provider unavailable");
     }
 
     @Test
-    void mapUnexpectedProviderAsUnavailable() {
-        var response = mapper.toResponse(new UnexpectedProviderException("Unexpected"));
-        var entity = (ErrorResponse) response.getEntity();
-
-        assertEquals(503, response.getStatus());
-        assertEquals(ErrorCode.WEATHER_SERVICE_UNAVAILABLE, entity.error());
+    void verifyUnexpectedException() {
+        assertErrorResponse(
+                mapper.toResponse(new RuntimeException("Database is down")),
+                Response.Status.INTERNAL_SERVER_ERROR,
+                ErrorCodes.INTERNAL_SERVER_ERROR,
+                ErrorMessages.UNEXPECTED_SERVER_ERROR);
     }
 
-    @Test
-    void mapUnknownExceptionAsInternalServerError() {
-        var response = mapper.toResponse(new RuntimeException("Boom"));
-        var entity = (ErrorResponse) response.getEntity();
+    /**
+     * Metodo para comparar el cuerpo del objeto mapeado a partir de la excepcion
+     * con el codigo, el tipo de error y el mensaje esperados
+     *
+     * @param response  la respuesta a verificar
+     * @param status    el estado esperado de la respuesta
+     * @param errorCode el codigo de error esperado
+     * @param message   el mensaje esperado
+     */
+    private static void assertErrorResponse(Response response,
+                                            Response.Status status,
+                                            ErrorCodes errorCode,
+                                            String message) {
+        var body = (ErrorResponse) response.getEntity();
 
-        assertEquals(500, response.getStatus());
-        assertEquals(ErrorCode.INTERNAL_SERVER_ERROR, entity.error());
-        assertEquals("Unexpected server error", entity.message());
+        assertAll(
+                () -> assertEquals(status.getStatusCode(), response.getStatus()),
+                () -> assertEquals(status.getStatusCode(), body.status()),
+                () -> assertEquals(errorCode, body.error()),
+                () -> assertEquals(message, body.message()),
+                () -> assertEquals(PATH, body.path())
+        );
     }
 }
